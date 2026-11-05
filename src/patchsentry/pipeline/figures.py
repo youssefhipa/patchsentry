@@ -67,7 +67,8 @@ def _load(name: str) -> dict[str, Any] | None:
     if not path.exists():
         logger.warning("Skipping a figure: %s does not exist", path)
         return None
-    return json.loads(path.read_text())
+    report: dict[str, Any] = json.loads(path.read_text())
+    return report
 
 
 def _save(figure: Any, name: str) -> None:
@@ -229,7 +230,7 @@ def gallery(bundle: Path, data_root: Path, categories: list[str]) -> None:
         # Median-scoring detection (typical, not cherry-picked) and the hardest defect (lowest).
         detected = np.flatnonzero([result.is_anomalous for result in results])
         typical = detected[np.argsort(scores[detected])[len(detected) // 2]] if detected.size else 0
-        for kind, position in (("typical", int(typical)), ("hardest", int(scores.argmin()))):
+        for kind, position in (("typical", int(typical)), ("hardest", int(np.argmin(scores)))):
             result = results[position]
             pixel_map = upsample_maps(
                 result.patch_map[None], engine.image_size, engine.gaussian_sigma

@@ -97,6 +97,10 @@ class PatchCoreIndex:
         worst = distances.argmax(axis=1)
         rows = np.arange(n)
         s_star = distances[rows, worst]
+        if self.reweight_neighbours <= 1:
+            # The neighbourhood is m* alone, so the formula gives a weight of exactly 0 for every
+            # image. One neighbour therefore means "no reweighting": the score is s* itself.
+            return s_star.astype(np.float32), distances.reshape(n, height, width)
 
         patches = flat.reshape(n, height * width, dimension)[rows, worst]
         nearest_of_worst = self.neighbour_table[neighbours[rows, worst]]

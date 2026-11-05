@@ -1,0 +1,155 @@
+{
+  "environment": {
+    "machine": "arm64",
+    "system": "macOS-26.6.2-arm64-arm-64bit",
+    "processor": "Apple M3",
+    "python": "3.12.12",
+    "torch": "2.15.0",
+    "git_commit": "06bc4e5"
+  },
+  "dev_categories": [
+    "candle",
+    "cashew",
+    "macaroni1",
+    "pcb1"
+  ],
+  "base": {
+    "data_root": "data/raw/visa",
+    "seed": 0,
+    "calibration_fraction": 0.25,
+    "image_size": 224,
+    "backbone": "wide_resnet50_2",
+    "target_dim": 1024,
+    "neighbourhood": 3,
+    "coreset_fraction": 0.01,
+    "max_pool_patches": 200000,
+    "projection_dim": 128,
+    "reweight_neighbours": 9,
+    "gaussian_sigma": 4.0,
+    "batch_size": 32,
+    "alphas": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "default_alpha": 0.05
+  },
+  "results": [
+    {
+      "variation": "backbone=resnet50,image_size=320",
+      "overrides": {
+        "backbone": "resnet50",
+        "image_size": 320
+      },
+      "objective": 0.9426813767182971,
+      "means": {
+        "image_auroc": 0.94655,
+        "image_f1_max": 0.9097230680397838,
+        "pixel_auroc": 0.9920016213185013,
+        "aupro": 0.9388127534365942,
+        "scoring_ms_per_image": 38.68872128541777,
+        "fit_seconds": 139.84366487499938
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9633,
+          "image_f1_max": 0.912621359223301,
+          "pixel_auroc": 0.9920476468136208,
+          "aupro": 0.9633638749789525,
+          "fit_seconds": 143.29756795899812,
+          "scoring_ms_per_image": 35.43874229000721,
+          "bank_size": 10800
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9548,
+          "image_f1_max": 0.9306930693069307,
+          "pixel_auroc": 0.9859493210206468,
+          "aupro": 0.9074303321620935,
+          "fit_seconds": 69.36058679100097,
+          "scoring_ms_per_image": 18.526309726682182,
+          "bank_size": 5408
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.9082,
+          "image_f1_max": 0.8785046728971962,
+          "pixel_auroc": 0.9927004664234347,
+          "aupro": 0.9476973247887616,
+          "fit_seconds": 166.6769677500015,
+          "scoring_ms_per_image": 51.642838539992226,
+          "bank_size": 10800
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9599,
+          "image_f1_max": 0.9170731707317074,
+          "pixel_auroc": 0.9973090510163032,
+          "aupro": 0.9367594818165692,
+          "fit_seconds": 180.03953699999693,
+          "scoring_ms_per_image": 49.14699458498944,
+          "bank_size": 10848
+        }
+      ]
+    },
+    {
+      "variation": "image_size=320,target_dim=512",
+      "overrides": {
+        "image_size": 320,
+        "target_dim": 512
+      },
+      "objective": 0.9419579991333695,
+      "means": {
+        "image_auroc": 0.9532999999999999,
+        "image_f1_max": 0.9125861933105026,
+        "pixel_auroc": 0.9916530377855756,
+        "aupro": 0.9306159982667392,
+        "scoring_ms_per_image": 37.12748064375167,
+        "fit_seconds": 154.3252318750001
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9629,
+          "image_f1_max": 0.9238095238095239,
+          "pixel_auroc": 0.9931791110109562,
+          "aupro": 0.965540136111399,
+          "fit_seconds": 173.00932974999887,
+          "scoring_ms_per_image": 37.78069374999177,
+          "bank_size": 10800
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9674,
+          "image_f1_max": 0.9319371727748691,
+          "pixel_auroc": 0.9888368058762248,
+          "aupro": 0.9003519723198417,
+          "fit_seconds": 89.06075320899981,
+          "scoring_ms_per_image": 20.69450528001956,
+          "bank_size": 5408
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.9136,
+          "image_f1_max": 0.8625592417061612,
+          "pixel_auroc": 0.9871315446625467,
+          "aupro": 0.9067196557355305,
+          "fit_seconds": 169.0370692079996,
+          "scoring_ms_per_image": 38.484851044995594,
+          "bank_size": 10800
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9693,
+          "image_f1_max": 0.9320388349514563,
+          "pixel_auroc": 0.9974646895925744,
+          "aupro": 0.9498522289001858,
+          "fit_seconds": 186.19377533300212,
+          "scoring_ms_per_image": 51.549872499999765,
+          "bank_size": 10848
+        }
+      ]
+    }
+  ]
+}

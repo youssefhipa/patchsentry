@@ -45,13 +45,33 @@ VARIATIONS: list[dict[str, Any]] = [
     {"reweight_neighbours": 1},
 ]
 
+# Second stage: combinations of the best single changes, still on the development categories.
+COMBINATIONS: list[dict[str, Any]] = [
+    {"backbone": "resnet50", "image_size": 320},
+    {"image_size": 320, "target_dim": 512},
+]
+
+# Rerun after a bug fix: with one neighbour the weight was always 0, so every score was 0.
+RERUNS: list[dict[str, Any]] = [{"reweight_neighbours": 1}]
+
+STAGES: dict[str, tuple[list[dict[str, Any]], str]] = {
+    "single": (VARIATIONS, "sweep.json"),
+    "combinations": (COMBINATIONS, "sweep_combinations.json"),
+    "rerun": (RERUNS, "sweep_rerun.json"),
+}
+
 
 def _objective(means: dict[str, float | None]) -> float:
     """Equal weight on detection and localisation."""
     return ((means["image_auroc"] or 0.0) + (means["aupro"] or 0.0)) / 2.0
 
 
-def run(base: Config, categories: tuple[str, ...], variations: list[dict[str, Any]]) -> None:
+def run(
+    base: Config,
+    categories: tuple[str, ...],
+    variations: list[dict[str, Any]],
+    report_name: str = "sweep.json",
+) -> None:
     device = pick_device()
     setup_mlflow("patchcore-sweep")
     rows: list[dict[str, Any]] = []
@@ -107,7 +127,7 @@ def run(base: Config, categories: tuple[str, ...], variations: list[dict[str, An
             }
         )
         write_report(
-            "sweep.json",
+            report_name,
             {"dev_categories": list(categories), "base": base.to_params(), "results": rows},
         )
     best = max(rows, key=lambda row: row["objective"])
@@ -118,9 +138,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=Path("configs/default.yaml"))
     parser.add_argument("--categories", nargs="*", default=list(DEV_CATEGORIES))
+    parser.add_argument(
+        "--stage", choices=list(STAGES), default="single", help="Which grid to run."
+    )
     args = parser.parse_args()
     setup_logging()
-    run(Config.load(args.config), tuple(args.categories), VARIATIONS)
+    variations, report_name = STAGES[args.stage]
+    run(Config.load(args.config), tuple(args.categories), variations, report_name)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,550 @@
+{
+  "environment": {
+    "machine": "arm64",
+    "system": "macOS-26.6.2-arm64-arm-64bit",
+    "processor": "Apple M3",
+    "python": "3.12.12",
+    "torch": "2.15.0",
+    "git_commit": "06bc4e5"
+  },
+  "dev_categories": [
+    "candle",
+    "cashew",
+    "macaroni1",
+    "pcb1"
+  ],
+  "base": {
+    "data_root": "data/raw/visa",
+    "seed": 0,
+    "calibration_fraction": 0.25,
+    "image_size": 224,
+    "backbone": "wide_resnet50_2",
+    "target_dim": 1024,
+    "neighbourhood": 3,
+    "coreset_fraction": 0.01,
+    "max_pool_patches": 200000,
+    "projection_dim": 128,
+    "reweight_neighbours": 9,
+    "gaussian_sigma": 4.0,
+    "batch_size": 32,
+    "alphas": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "default_alpha": 0.05
+  },
+  "results": [
+    {
+      "variation": "baseline",
+      "overrides": {},
+      "objective": 0.9079051897305742,
+      "means": {
+        "image_auroc": 0.92645,
+        "image_f1_max": 0.8789514858590539,
+        "pixel_auroc": 0.9851679315652747,
+        "aupro": 0.8893603794611484,
+        "scoring_ms_per_image": 10.33381545125394,
+        "fit_seconds": 79.75424088550017
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9673,
+          "image_f1_max": 0.9170731707317074,
+          "pixel_auroc": 0.9893696080443849,
+          "aupro": 0.9549631887575435,
+          "fit_seconds": 74.81522904200028,
+          "scoring_ms_per_image": 11.391778540000814,
+          "bank_size": 5292
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9564,
+          "image_f1_max": 0.9223300970873787,
+          "pixel_auroc": 0.9930493999043518,
+          "aupro": 0.8937800201119042,
+          "fit_seconds": 56.34555262499998,
+          "scoring_ms_per_image": 7.726929720010958,
+          "bank_size": 2649
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.8447,
+          "image_f1_max": 0.7960199004975125,
+          "pixel_auroc": 0.9626865100262708,
+          "aupro": 0.8186242070963082,
+          "fit_seconds": 92.98403795800004,
+          "scoring_ms_per_image": 10.933126250001806,
+          "bank_size": 5292
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9374,
+          "image_f1_max": 0.8803827751196173,
+          "pixel_auroc": 0.9955662082860911,
+          "aupro": 0.8900741018788376,
+          "fit_seconds": 94.87214391700036,
+          "scoring_ms_per_image": 11.283427295002184,
+          "bank_size": 5315
+        }
+      ]
+    },
+    {
+      "variation": "backbone=resnet18",
+      "overrides": {
+        "backbone": "resnet18"
+      },
+      "objective": 0.9117135619204035,
+      "means": {
+        "image_auroc": 0.921075,
+        "image_f1_max": 0.8600999158255888,
+        "pixel_auroc": 0.9865064766854448,
+        "aupro": 0.902352123840807,
+        "scoring_ms_per_image": 7.770467604164726,
+        "fit_seconds": 76.31394476049991
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9533,
+          "image_f1_max": 0.8899521531100478,
+          "pixel_auroc": 0.9866198723693255,
+          "aupro": 0.9437931613344233,
+          "fit_seconds": 90.82850183299888,
+          "scoring_ms_per_image": 9.016099374994155,
+          "bank_size": 5292
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9366,
+          "image_f1_max": 0.896551724137931,
+          "pixel_auroc": 0.9907455413466663,
+          "aupro": 0.9036512844278954,
+          "fit_seconds": 41.22775308400014,
+          "scoring_ms_per_image": 4.177809166661366,
+          "bank_size": 2649
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.8735,
+          "image_f1_max": 0.8080808080808081,
+          "pixel_auroc": 0.9740938893821831,
+          "aupro": 0.8751514647530494,
+          "fit_seconds": 87.32570375000068,
+          "scoring_ms_per_image": 8.76120875000197,
+          "bank_size": 5292
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9209,
+          "image_f1_max": 0.8458149779735683,
+          "pixel_auroc": 0.9945666036436045,
+          "aupro": 0.8868125848478596,
+          "fit_seconds": 85.87382037499992,
+          "scoring_ms_per_image": 9.126753125001414,
+          "bank_size": 5315
+        }
+      ]
+    },
+    {
+      "variation": "backbone=resnet50",
+      "overrides": {
+        "backbone": "resnet50"
+      },
+      "objective": 0.9246633506979244,
+      "means": {
+        "image_auroc": 0.93635,
+        "image_f1_max": 0.8896468620615742,
+        "pixel_auroc": 0.9883665178673159,
+        "aupro": 0.9129767013958487,
+        "scoring_ms_per_image": 11.34986682166603,
+        "fit_seconds": 79.3581754377501
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9588,
+          "image_f1_max": 0.8981481481481481,
+          "pixel_auroc": 0.9903329996186231,
+          "aupro": 0.9593052502657455,
+          "fit_seconds": 95.22447179200026,
+          "scoring_ms_per_image": 14.10215750000134,
+          "bank_size": 5292
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9776,
+          "image_f1_max": 0.9552238805970149,
+          "pixel_auroc": 0.9937730382412088,
+          "aupro": 0.9043721448039259,
+          "fit_seconds": 43.96149904199956,
+          "scoring_ms_per_image": 6.023196666659108,
+          "bank_size": 2649
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.8654,
+          "image_f1_max": 0.8163265306122449,
+          "pixel_auroc": 0.9736145505579401,
+          "aupro": 0.8895143326722296,
+          "fit_seconds": 90.02630670799954,
+          "scoring_ms_per_image": 13.587631455002338,
+          "bank_size": 5292
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9436,
+          "image_f1_max": 0.8888888888888888,
+          "pixel_auroc": 0.9957454830514915,
+          "aupro": 0.8987150778414936,
+          "fit_seconds": 88.22042420900107,
+          "scoring_ms_per_image": 11.686481665001338,
+          "bank_size": 5315
+        }
+      ]
+    },
+    {
+      "variation": "image_size=320",
+      "overrides": {
+        "image_size": 320
+      },
+      "objective": 0.9472166219530447,
+      "means": {
+        "image_auroc": 0.954275,
+        "image_f1_max": 0.91252678938552,
+        "pixel_auroc": 0.9921297178310445,
+        "aupro": 0.9401582439060893,
+        "scoring_ms_per_image": 44.26684474083534,
+        "fit_seconds": 158.73069403149975
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9635,
+          "image_f1_max": 0.9056603773584906,
+          "pixel_auroc": 0.9928982520705537,
+          "aupro": 0.9643934057329699,
+          "fit_seconds": 184.71731029199873,
+          "scoring_ms_per_image": 54.41136604499661,
+          "bank_size": 10800
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9726,
+          "image_f1_max": 0.945273631840796,
+          "pixel_auroc": 0.9892532309112682,
+          "aupro": 0.9257513296593575,
+          "fit_seconds": 89.82542562500021,
+          "scoring_ms_per_image": 24.015475833342254,
+          "bank_size": 5408
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.9099,
+          "image_f1_max": 0.863849765258216,
+          "pixel_auroc": 0.9887508530886328,
+          "aupro": 0.9186451041104595,
+          "fit_seconds": 178.91005329200016,
+          "scoring_ms_per_image": 47.26800583500335,
+          "bank_size": 10800
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9711,
+          "image_f1_max": 0.9353233830845771,
+          "pixel_auroc": 0.9976165352537235,
+          "aupro": 0.9518431361215703,
+          "fit_seconds": 181.46998691699991,
+          "scoring_ms_per_image": 51.372531249999156,
+          "bank_size": 10848
+        }
+      ]
+    },
+    {
+      "variation": "target_dim=512",
+      "overrides": {
+        "target_dim": 512
+      },
+      "objective": 0.9117827798333153,
+      "means": {
+        "image_auroc": 0.935575,
+        "image_f1_max": 0.881280215346635,
+        "pixel_auroc": 0.9850941303829583,
+        "aupro": 0.8879905596666305,
+        "scoring_ms_per_image": 9.363787134996073,
+        "fit_seconds": 83.17543133324989
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9686,
+          "image_f1_max": 0.9074074074074074,
+          "pixel_auroc": 0.9890086059541462,
+          "aupro": 0.953740946731797,
+          "fit_seconds": 95.95425737500045,
+          "scoring_ms_per_image": 9.502971664996949,
+          "bank_size": 5292
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.951,
+          "image_f1_max": 0.9215686274509803,
+          "pixel_auroc": 0.9921472738048205,
+          "aupro": 0.8851568936951815,
+          "fit_seconds": 46.9513769160003,
+          "scoring_ms_per_image": 4.145597499991709,
+          "bank_size": 2649
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.8704,
+          "image_f1_max": 0.8105726872246696,
+          "pixel_auroc": 0.9632691181862515,
+          "aupro": 0.8256330043900938,
+          "fit_seconds": 91.10868733300049,
+          "scoring_ms_per_image": 12.800262500004465,
+          "bank_size": 5292
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9523,
+          "image_f1_max": 0.8855721393034826,
+          "pixel_auroc": 0.9959515235866154,
+          "aupro": 0.8874313938494499,
+          "fit_seconds": 98.68740370899832,
+          "scoring_ms_per_image": 11.006316874991171,
+          "bank_size": 5315
+        }
+      ]
+    },
+    {
+      "variation": "neighbourhood=5",
+      "overrides": {
+        "neighbourhood": 5
+      },
+      "objective": 0.8616922715532986,
+      "means": {
+        "image_auroc": 0.891375,
+        "image_f1_max": 0.8417767990792585,
+        "pixel_auroc": 0.9662544562130925,
+        "aupro": 0.8320095431065972,
+        "scoring_ms_per_image": 11.526800782091112,
+        "fit_seconds": 85.10431381249964
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9471,
+          "image_f1_max": 0.875,
+          "pixel_auroc": 0.9836039115668649,
+          "aupro": 0.9388702034998309,
+          "fit_seconds": 100.90151550000155,
+          "scoring_ms_per_image": 15.446074585015594,
+          "bank_size": 5292
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9526,
+          "image_f1_max": 0.9245283018867925,
+          "pixel_auroc": 0.9933152196111842,
+          "aupro": 0.8297347690839582,
+          "fit_seconds": 51.21164524999767,
+          "scoring_ms_per_image": 6.2107383333447315,
+          "bank_size": 2649
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.7575,
+          "image_f1_max": 0.726457399103139,
+          "pixel_auroc": 0.896278487032567,
+          "aupro": 0.7190432990875554,
+          "fit_seconds": 96.64522862499871,
+          "scoring_ms_per_image": 13.328749795000476,
+          "bank_size": 5292
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9083,
+          "image_f1_max": 0.8411214953271028,
+          "pixel_auroc": 0.9918202066417542,
+          "aupro": 0.8403899007550447,
+          "fit_seconds": 91.65886587500063,
+          "scoring_ms_per_image": 11.12164041500364,
+          "bank_size": 5315
+        }
+      ]
+    },
+    {
+      "variation": "coreset_fraction=0.001",
+      "overrides": {
+        "coreset_fraction": 0.001
+      },
+      "objective": 0.8456209792443985,
+      "means": {
+        "image_auroc": 0.8785,
+        "image_f1_max": 0.8268423702809993,
+        "pixel_auroc": 0.9707826674253038,
+        "aupro": 0.8127419584887972,
+        "scoring_ms_per_image": 2.080543038326444,
+        "fit_seconds": 9.594471573000192
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9434,
+          "image_f1_max": 0.8744186046511628,
+          "pixel_auroc": 0.9819256688310316,
+          "aupro": 0.9464187057494977,
+          "fit_seconds": 9.81844033300149,
+          "scoring_ms_per_image": 1.9124183299936703,
+          "bank_size": 529
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9156,
+          "image_f1_max": 0.8844221105527639,
+          "pixel_auroc": 0.9916816834013851,
+          "aupro": 0.8673968197827753,
+          "fit_seconds": 4.870212041998457,
+          "scoring_ms_per_image": 1.8603511133308832,
+          "bank_size": 264
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.7552,
+          "image_f1_max": 0.7272727272727273,
+          "pixel_auroc": 0.921201976119457,
+          "aupro": 0.6870140594986611,
+          "fit_seconds": 10.513168208002753,
+          "scoring_ms_per_image": 2.2373858349965303,
+          "bank_size": 529
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.8998,
+          "image_f1_max": 0.821256038647343,
+          "pixel_auroc": 0.9883213413493418,
+          "aupro": 0.7501382489242543,
+          "fit_seconds": 13.176065708998067,
+          "scoring_ms_per_image": 2.3120168749846925,
+          "bank_size": 531
+        }
+      ]
+    },
+    {
+      "variation": "coreset_fraction=0.05",
+      "overrides": {
+        "coreset_fraction": 0.05
+      },
+      "objective": 0.913457047952695,
+      "means": {
+        "image_auroc": 0.9303250000000001,
+        "image_f1_max": 0.8738846281007129,
+        "pixel_auroc": 0.9864179810588131,
+        "aupro": 0.8965890959053899,
+        "scoring_ms_per_image": 61.81411447999532,
+        "fit_seconds": 397.2331375312506
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.9604,
+          "image_f1_max": 0.8888888888888888,
+          "pixel_auroc": 0.9902684310185491,
+          "aupro": 0.9606686057757656,
+          "fit_seconds": 454.39329295800053,
+          "scoring_ms_per_image": 70.91874729499978,
+          "bank_size": 26460
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.9628,
+          "image_f1_max": 0.9333333333333333,
+          "pixel_auroc": 0.9931461524456922,
+          "aupro": 0.9018766843970731,
+          "fit_seconds": 227.27234012500048,
+          "scoring_ms_per_image": 58.489074999985554,
+          "bank_size": 13249
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.8569,
+          "image_f1_max": 0.794392523364486,
+          "pixel_auroc": 0.9660010518812149,
+          "aupro": 0.8261682697264427,
+          "fit_seconds": 453.1627021669992,
+          "scoring_ms_per_image": 67.16888062499493,
+          "bank_size": 26460
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.9412,
+          "image_f1_max": 0.8789237668161435,
+          "pixel_auroc": 0.9962562888897963,
+          "aupro": 0.8976428237222782,
+          "fit_seconds": 454.10421487500207,
+          "scoring_ms_per_image": 50.67975500000102,
+          "bank_size": 26577
+        }
+      ]
+    },
+    {
+      "variation": "reweight_neighbours=1",
+      "overrides": {
+        "reweight_neighbours": 1
+      },
+      "objective": 0.6950551897305742,
+      "means": {
+        "image_auroc": 0.50075,
+        "image_f1_max": 0.7022753128555176,
+        "pixel_auroc": 0.9851679315652747,
+        "aupro": 0.8893603794611484,
+        "scoring_ms_per_image": 14.422448716247043,
+        "fit_seconds": 75.9547842815
+      },
+      "per_category": [
+        {
+          "category": "candle",
+          "image_auroc": 0.4921,
+          "image_f1_max": 0.6666666666666666,
+          "pixel_auroc": 0.9893696080443849,
+          "aupro": 0.9549631887575435,
+          "fit_seconds": 88.72239804199853,
+          "scoring_ms_per_image": 20.189627500003553,
+          "bank_size": 5292
+        },
+        {
+          "category": "cashew",
+          "image_auroc": 0.5314,
+          "image_f1_max": 0.8,
+          "pixel_auroc": 0.9930493999043518,
+          "aupro": 0.8937800201119042,
+          "fit_seconds": 43.35417458399752,
+          "scoring_ms_per_image": 7.580150279997421,
+          "bank_size": 2649
+        },
+        {
+          "category": "macaroni1",
+          "image_auroc": 0.4971,
+          "image_f1_max": 0.6666666666666666,
+          "pixel_auroc": 0.9626865100262708,
+          "aupro": 0.8186242070963082,
+          "fit_seconds": 98.38169858300171,
+          "scoring_ms_per_image": 18.901245209999615,
+          "bank_size": 5292
+        },
+        {
+          "category": "pcb1",
+          "image_auroc": 0.4824,
+          "image_f1_max": 0.6757679180887372,
+          "pixel_auroc": 0.9955662082860911,
+          "aupro": 0.8900741018788376,
+          "fit_seconds": 73.36086591700223,
+          "scoring_ms_per_image": 11.018771874987578,
+          "bank_size": 5315
+        }
+      ]
+    }
+  ]
+}

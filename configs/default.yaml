@@ -1,9 +1,15 @@
-# Baseline configuration. Values marked "selected" were chosen by the sweep on development categories
-# only (see src/patchsentry/pipeline/sweep.py); the other categories never influence them.
+# Selected configuration. The sweep (reports/sweep*.json) ran on the development categories only:
+# candle, cashew, macaroni1, pcb1. The eight other categories never influenced these values.
+#
+# Adopted: image_size 320, the best single change (objective 0.947 against 0.908 for the 224 baseline).
+# The combination stage confirmed it: neither resnet50 nor target_dim 512 at 320 did better.
+# Kept at the PatchCore defaults, because the changes tested did not help: backbone, target_dim,
+# neighbourhood, coreset_fraction, and reweight_neighbours (switching it off changed the objective by
+# under 0.001).
 data_root: data/raw/visa
 seed: 0
 calibration_fraction: 0.25
-image_size: 224
+image_size: 320
 backbone: wide_resnet50_2
 target_dim: 1024
 neighbourhood: 3

@@ -100,6 +100,15 @@ def test_patchcore_reweighting_formula() -> None:
     assert scores[0] == pytest.approx(weight * d0, rel=1e-5)
 
 
+def test_one_neighbour_disables_reweighting_instead_of_zeroing_scores() -> None:
+    """Regression test: b=1 used to give every image a score of 0 (AUROC 0.5 in the sweep)."""
+    bank = np.random.default_rng(0).normal(size=(50, 4)).astype(np.float32)
+    features = np.random.default_rng(1).normal(size=(3, 2, 2, 4)).astype(np.float32) * 3
+    scores, maps = PatchCoreIndex(bank, "torch", reweight_neighbours=1).score(features)
+    assert np.allclose(scores, maps.reshape(3, -1).max(axis=1))
+    assert (scores > 0).all()
+
+
 def test_patchcore_scoring_survives_distances_that_would_overflow_exp() -> None:
     bank = np.random.default_rng(0).normal(size=(50, 8)).astype(np.float32)
     index = PatchCoreIndex(bank, "torch")
