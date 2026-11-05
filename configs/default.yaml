@@ -1,0 +1,17 @@
+# Baseline configuration. Values marked "selected" were chosen by the sweep on development categories
+# only (see src/patchsentry/pipeline/sweep.py); the other categories never influence them.
+data_root: data/raw/visa
+seed: 0
+calibration_fraction: 0.25
+image_size: 224
+backbone: wide_resnet50_2
+target_dim: 1024
+neighbourhood: 3
+coreset_fraction: 0.01
+max_pool_patches: 200000
+projection_dim: 128
+reweight_neighbours: 9
+gaussian_sigma: 4.0
+batch_size: 32
+alphas: [0.01, 0.05, 0.1]
+default_alpha: 0.05

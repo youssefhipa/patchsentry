@@ -1,0 +1,50 @@
+# Secrets. Never commit these.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets*
+
+# Data and model artefacts are reproducible from scripts and too large for git.
+/data
+/artifacts
+data/
+artifacts/
+mlruns/
+mlflow.db
+*.db
+*.sqlite
+*.onnx
+*.onnx.data
+*.faiss
+*.pt
+*.pth
+*.ckpt
+*.npy
+*.npz
+*.tar
+*.tar.gz
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Tooling and OS
+.DS_Store
+.idea/
+.vscode/
+*.log
+logs/
+.claude/

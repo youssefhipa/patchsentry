@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.9.5"
+          enable-cache: true
+      - run: uv sync --python 3.12 --frozen --extra train --extra dev
+      - name: Lint
+        run: uv run --frozen ruff check .
+      - name: Format
+        run: uv run --frozen ruff format --check .
+      - name: Types
+        run: uv run --frozen mypy
+      # Two runs on purpose: FAISS and PyTorch must not share a process (models/torch_index.py).
+      - name: Training tests
+        run: uv run --frozen pytest tests/training -q
+      - name: Serving tests
+        run: uv run --frozen pytest tests/serving -q
+
+  image:
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the serving image
+        run: docker build -t patchsentry:ci .
+      - name: The image must not contain PyTorch and must import the service
+        run: |
+          docker run --rm patchsentry:ci python -c "
+          import importlib.util as u, patchsentry.serving.app
+          assert u.find_spec('torch') is None, 'torch leaked into the serving image'
+          print('ok')"

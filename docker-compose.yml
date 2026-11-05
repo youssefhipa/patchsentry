@@ -1,0 +1,35 @@
+# Runs the API with a PostgreSQL audit log. Build the bundle first: `make bundle`.
+services:
+  api:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      PATCHSENTRY_DATABASE_URL: postgresql+psycopg://patchsentry:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/patchsentry
+      PATCHSENTRY_USE_QUANTIZED: ${PATCHSENTRY_USE_QUANTIZED:-false}
+      PATCHSENTRY_MAX_BATCH_SIZE: ${PATCHSENTRY_MAX_BATCH_SIZE:-16}
+      PATCHSENTRY_MAX_WAIT_MS: ${PATCHSENTRY_MAX_WAIT_MS:-5}
+    volumes:
+      - ./artifacts/bundle:/models/bundle:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: patchsentry
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: patchsentry
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U patchsentry -d patchsentry"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
