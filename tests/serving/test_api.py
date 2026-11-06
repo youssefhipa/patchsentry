@@ -150,20 +150,29 @@ def test_concurrent_requests_get_the_same_scores_as_sequential_ones(
     bundle_dir: Path, tmp_path: Path
 ) -> None:
     """Batching must never change a result or cross-wire responses between callers."""
-    images = [_png(image) for image in textured_images(4, seed=30)]
-    images += [_png(image) for image in with_defect(textured_images(4, seed=31))]
+    # Defects of different sizes give each image a clearly different score, so that a response
+    # delivered to the wrong caller cannot pass as float noise.
+    arrays = textured_images(8, seed=30)
+    for index, size in enumerate(range(4, 36, 4)):
+        arrays[index, 10 : 10 + size, 10 : 10 + size] = (255, 0, 255)
+    images = [_png(array) for array in arrays]
 
     with TestClient(create_app(_settings(bundle_dir, tmp_path, max_batch_size=1))) as client:
-        sequential = [_inspect(client, data).json()["anomaly_score"] for data in images]
+        sequential = np.array([_inspect(client, data).json()["anomaly_score"] for data in images])
 
     settings = _settings(bundle_dir, tmp_path, max_batch_size=8, max_wait_ms=100.0)
     with TestClient(create_app(settings)) as client, ThreadPoolExecutor(8) as pool:
         responses = list(pool.map(lambda data: _inspect(client, data).json(), images))
         batch_text = client.get("/metrics").text
-    # FAISS results for identical features vary by about 1e-4 with batch shape, because float32
-    # rounding matters at these very small distances. Different images differ by far more than
-    # this tolerance, so a cross-wired response would still fail here.
-    assert [r["anomaly_score"] for r in responses] == pytest.approx(sequential, abs=1e-3)
+    batched = np.array([response["anomaly_score"] for response in responses])
+
+    # Batch shape changes float32 rounding in the convolution and in FAISS. Measured worst case:
+    # about 1e-4 on Apple M3 and 1.1e-3 on the x86 CI runner. Allow 5e-3 for that noise...
+    noise = 5e-3
+    assert np.abs(batched - sequential).max() < noise
+    # ...and require every pair of images to differ by more, so the check above can catch a swap.
+    gaps = np.abs(sequential[:, None] - sequential[None, :])[~np.eye(len(sequential), dtype=bool)]
+    assert gaps.min() > 2 * noise, f"test images are not distinct enough: min gap {gaps.min()}"
     assert 'patchsentry_batch_size_bucket{le="1.0"} 8.0' not in batch_text, "nothing was batched"
 
 

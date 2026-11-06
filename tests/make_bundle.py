@@ -7,6 +7,8 @@ import json
 import sys
 from pathlib import Path
 
+import torch
+
 from patchsentry.conformal import conformal_threshold
 from patchsentry.models.coreset import greedy_k_center
 from patchsentry.models.features import PatchFeatureExtractor, extract_features
@@ -16,6 +18,9 @@ from tests.synthetic import IMAGE_SIZE, textured_images
 
 
 def main(directory: Path) -> None:
+    # The network is untrained, so its weights must be seeded: otherwise every test session gets a
+    # different bundle, and the margin between normal and defective images changes from run to run.
+    torch.manual_seed(0)
     extractor = PatchFeatureExtractor("resnet18", target_dim=256, pretrained=False)
     export_onnx(extractor, directory / "backbone.onnx", IMAGE_SIZE)
     quantize_onnx(
