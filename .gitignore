@@ -8,11 +8,10 @@ credentials*.json
 secrets*
 
 # Data and model artefacts are reproducible from scripts and too large for git.
+# Anchored to the repo root: an unanchored `data/` also matched src/patchsentry/data/.
 /data
 /artifacts
-data/
-artifacts/
-mlruns/
+/mlruns/
 mlflow.db
 *.db
 *.sqlite
