@@ -66,6 +66,9 @@ src = ["src", "tests"]
 select = ["E", "F", "I", "UP", "B", "C4", "SIM", "RUF", "PTH", "NPY"]
 ignore = ["B008"] # FastAPI's Depends()/File() defaults are the documented idiom.
 
+[tool.ruff.lint.isort]
+known-first-party = ["patchsentry", "tests"]
+
 [tool.mypy]
 python_version = "3.11"
 strict = true
