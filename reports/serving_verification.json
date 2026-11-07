@@ -1,0 +1,197 @@
+{
+  "alpha": "0.05",
+  "rows": [
+    {
+      "category": "candle",
+      "model": "float",
+      "image_auroc": 0.9635,
+      "aupro": 0.9643929880992171,
+      "false_alarm_rate": 0.06,
+      "recall": 0.78
+    },
+    {
+      "category": "capsules",
+      "model": "float",
+      "image_auroc": 0.7098333333333333,
+      "aupro": 0.7077160577054254,
+      "false_alarm_rate": 0.03333333333333333,
+      "recall": 0.37
+    },
+    {
+      "category": "cashew",
+      "model": "float",
+      "image_auroc": 0.9726,
+      "aupro": 0.9257516584532204,
+      "false_alarm_rate": 0.02,
+      "recall": 0.77
+    },
+    {
+      "category": "chewinggum",
+      "model": "float",
+      "image_auroc": 0.9936,
+      "aupro": 0.8511182779865625,
+      "false_alarm_rate": 0.0,
+      "recall": 0.96
+    },
+    {
+      "category": "fryum",
+      "model": "float",
+      "image_auroc": 0.935,
+      "aupro": 0.840945142167476,
+      "false_alarm_rate": 0.02,
+      "recall": 0.75
+    },
+    {
+      "category": "macaroni1",
+      "model": "float",
+      "image_auroc": 0.9101,
+      "aupro": 0.9186451112078944,
+      "false_alarm_rate": 0.03,
+      "recall": 0.49
+    },
+    {
+      "category": "macaroni2",
+      "model": "float",
+      "image_auroc": 0.6623,
+      "aupro": 0.8376365557876653,
+      "false_alarm_rate": 0.04,
+      "recall": 0.18
+    },
+    {
+      "category": "pcb1",
+      "model": "float",
+      "image_auroc": 0.9711,
+      "aupro": 0.9518431554983942,
+      "false_alarm_rate": 0.1,
+      "recall": 0.96
+    },
+    {
+      "category": "pcb2",
+      "model": "float",
+      "image_auroc": 0.9589,
+      "aupro": 0.9131403138530014,
+      "false_alarm_rate": 0.04,
+      "recall": 0.83
+    },
+    {
+      "category": "pcb3",
+      "model": "float",
+      "image_auroc": 0.9435643564356435,
+      "aupro": 0.8693993878064379,
+      "false_alarm_rate": 0.06930693069306931,
+      "recall": 0.81
+    },
+    {
+      "category": "pcb4",
+      "model": "float",
+      "image_auroc": 0.9957425742574257,
+      "aupro": 0.8849266809532482,
+      "false_alarm_rate": 0.04950495049504951,
+      "recall": 0.98
+    },
+    {
+      "category": "pipe_fryum",
+      "model": "float",
+      "image_auroc": 0.9922,
+      "aupro": 0.9479824182014789,
+      "false_alarm_rate": 0.14,
+      "recall": 0.99
+    },
+    {
+      "category": "candle",
+      "model": "quantized",
+      "image_auroc": 0.9591,
+      "aupro": 0.961907519353859,
+      "false_alarm_rate": 0.05,
+      "recall": 0.74
+    },
+    {
+      "category": "capsules",
+      "model": "quantized",
+      "image_auroc": 0.7353333333333333,
+      "aupro": 0.7511844966769545,
+      "false_alarm_rate": 0.03333333333333333,
+      "recall": 0.4
+    },
+    {
+      "category": "cashew",
+      "model": "quantized",
+      "image_auroc": 0.972,
+      "aupro": 0.9286514685045892,
+      "false_alarm_rate": 0.0,
+      "recall": 0.76
+    },
+    {
+      "category": "chewinggum",
+      "model": "quantized",
+      "image_auroc": 0.9942,
+      "aupro": 0.8497571487981624,
+      "false_alarm_rate": 0.0,
+      "recall": 0.96
+    },
+    {
+      "category": "fryum",
+      "model": "quantized",
+      "image_auroc": 0.9284,
+      "aupro": 0.8461732597665241,
+      "false_alarm_rate": 0.0,
+      "recall": 0.67
+    },
+    {
+      "category": "macaroni1",
+      "model": "quantized",
+      "image_auroc": 0.9153,
+      "aupro": 0.9264180516829856,
+      "false_alarm_rate": 0.03,
+      "recall": 0.47
+    },
+    {
+      "category": "macaroni2",
+      "model": "quantized",
+      "image_auroc": 0.6569,
+      "aupro": 0.849956153654569,
+      "false_alarm_rate": 0.05,
+      "recall": 0.23
+    },
+    {
+      "category": "pcb1",
+      "model": "quantized",
+      "image_auroc": 0.9696,
+      "aupro": 0.9537117375850387,
+      "false_alarm_rate": 0.08,
+      "recall": 0.93
+    },
+    {
+      "category": "pcb2",
+      "model": "quantized",
+      "image_auroc": 0.9584,
+      "aupro": 0.9164833650247092,
+      "false_alarm_rate": 0.04,
+      "recall": 0.82
+    },
+    {
+      "category": "pcb3",
+      "model": "quantized",
+      "image_auroc": 0.9434653465346534,
+      "aupro": 0.8784033925906942,
+      "false_alarm_rate": 0.0594059405940594,
+      "recall": 0.76
+    },
+    {
+      "category": "pcb4",
+      "model": "quantized",
+      "image_auroc": 0.9945544554455445,
+      "aupro": 0.868776350402713,
+      "false_alarm_rate": 0.039603960396039604,
+      "recall": 0.98
+    },
+    {
+      "category": "pipe_fryum",
+      "model": "quantized",
+      "image_auroc": 0.9896,
+      "aupro": 0.937159287247419,
+      "false_alarm_rate": 0.12,
+      "recall": 0.96
+    }
+  ]
+}

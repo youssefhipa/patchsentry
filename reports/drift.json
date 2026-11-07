@@ -1,0 +1,132 @@
+{
+  "environment": {
+    "machine": "arm64",
+    "system": "macOS-26.6.2-arm64-arm-64bit",
+    "processor": "Apple M3",
+    "python": "3.12.12",
+    "torch": "2.15.0",
+    "git_commit": "7436c70"
+  },
+  "rows": [
+    {
+      "category": "candle",
+      "n_images": 100,
+      "clean_ks": 0.08849557522123896,
+      "clean_ks_p": 0.3975136406393317,
+      "darker_30pct_ks": 0.9380530973451328,
+      "darker_30pct_ks_p": 7.153064599636802e-79,
+      "defocus_blur_ks": 0.995575221238938,
+      "defocus_blur_ks_p": 8.683862166532288e-89
+    },
+    {
+      "category": "capsules",
+      "n_images": 60,
+      "clean_ks": 0.1429440389294404,
+      "clean_ks_p": 0.15802461925529254,
+      "darker_30pct_ks": 0.24939172749391736,
+      "darker_30pct_ks_p": 0.0008838200452693611,
+      "defocus_blur_ks": 0.9927007299270073,
+      "defocus_blur_ks_p": 1.4084765394590263e-53
+    },
+    {
+      "category": "cashew",
+      "n_images": 50,
+      "clean_ks": 0.17628318584070798,
+      "clean_ks_p": 0.07927905461356682,
+      "darker_30pct_ks": 0.8249557522123894,
+      "darker_30pct_ks_p": 3.989882637657651e-31,
+      "defocus_blur_ks": 0.9911504424778761,
+      "defocus_blur_ks_p": 9.668764357809611e-45
+    },
+    {
+      "category": "chewinggum",
+      "n_images": 50,
+      "clean_ks": 0.25368421052631573,
+      "clean_ks_p": 0.0024998295178987272,
+      "darker_30pct_ks": 0.9536842105263158,
+      "darker_30pct_ks_p": 1.8723150691045178e-41,
+      "defocus_blur_ks": 0.9912280701754386,
+      "defocus_blur_ks_p": 9.515443353705907e-45
+    },
+    {
+      "category": "fryum",
+      "n_images": 50,
+      "clean_ks": 0.08070796460176988,
+      "clean_ks_p": 0.8876296077941673,
+      "darker_30pct_ks": 0.9911504424778761,
+      "darker_30pct_ks_p": 9.668764357809611e-45,
+      "defocus_blur_ks": 0.9911504424778761,
+      "defocus_blur_ks_p": 9.668764357809611e-45
+    },
+    {
+      "category": "macaroni1",
+      "n_images": 100,
+      "clean_ks": 0.15442477876106198,
+      "clean_ks_p": 0.014965128978394351,
+      "darker_30pct_ks": 0.6115929203539823,
+      "darker_30pct_ks_p": 9.016189334560776e-34,
+      "defocus_blur_ks": 0.995575221238938,
+      "defocus_blur_ks_p": 8.683862166532288e-89
+    },
+    {
+      "category": "macaroni2",
+      "n_images": 100,
+      "clean_ks": 0.1157522123893806,
+      "clean_ks_p": 0.12777336845816262,
+      "darker_30pct_ks": 0.3757522123893806,
+      "darker_30pct_ks_p": 5.176495552378853e-13,
+      "defocus_blur_ks": 0.995575221238938,
+      "defocus_blur_ks_p": 8.683862166532288e-89
+    },
+    {
+      "category": "pcb1",
+      "n_images": 100,
+      "clean_ks": 0.09462555066079292,
+      "clean_ks_p": 0.3169803744018786,
+      "darker_30pct_ks": 0.986784140969163,
+      "darker_30pct_ks_p": 3.106908815906409e-87,
+      "defocus_blur_ks": 0.9955947136563876,
+      "defocus_blur_ks_p": 8.614950514860737e-89
+    },
+    {
+      "category": "pcb2",
+      "n_images": 100,
+      "clean_ks": 0.07911504424778759,
+      "clean_ks_p": 0.5416802444950228,
+      "darker_30pct_ks": 0.9823008849557522,
+      "darker_30pct_ks_p": 1.9025344106912382e-86,
+      "defocus_blur_ks": 0.995575221238938,
+      "defocus_blur_ks_p": 8.683862166532288e-89
+    },
+    {
+      "category": "pcb3",
+      "n_images": 101,
+      "clean_ks": 0.06721332926244161,
+      "clean_ks_p": 0.7372090850960635,
+      "darker_30pct_ks": 0.9647577092511013,
+      "darker_30pct_ks_p": 3.208880698511745e-84,
+      "defocus_blur_ks": 0.9955947136563876,
+      "defocus_blur_ks_p": 1.1587941880684035e-89
+    },
+    {
+      "category": "pcb4",
+      "n_images": 101,
+      "clean_ks": 0.09425568107471549,
+      "clean_ks_p": 0.3158425545169104,
+      "darker_30pct_ks": 0.7511231299341388,
+      "darker_30pct_ks_p": 3.2227489296435415e-51,
+      "defocus_blur_ks": 0.9955947136563876,
+      "defocus_blur_ks_p": 1.1587941880684035e-89
+    },
+    {
+      "category": "pipe_fryum",
+      "n_images": 50,
+      "clean_ks": 0.163716814159292,
+      "clean_ks_p": 0.12354377187607457,
+      "darker_30pct_ks": 0.5971681415929203,
+      "darker_30pct_ks_p": 1.6374528318523447e-16,
+      "defocus_blur_ks": 0.9911504424778761,
+      "defocus_blur_ks_p": 9.668764357809611e-45
+    }
+  ]
+}

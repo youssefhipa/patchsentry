@@ -96,14 +96,24 @@ def model_comparison() -> None:
     order = sorted(categories, key=lambda category: mean_auroc("patchcore", category))
     figure, axis = plt.subplots(figsize=(8, 5))
     positions = np.arange(len(order))
-    for colour, (family, label) in zip(
+    # A small vertical offset per model keeps near-equal scores (macaroni2, pcb4) from hiding
+    # one dot behind another.
+    for offset, colour, (family, label) in zip(
+        (0.2, 0.0, -0.2),
         SERIES,
         (("patchcore", "PatchCore"), ("padim", "PaDiM"), ("autoencoder", "Autoencoder")),
         strict=True,
     ):
         values = [mean_auroc(family, category) for category in order]
         axis.scatter(
-            values, positions, s=64, color=colour, label=label, edgecolor=SURFACE, linewidth=1.5
+            values,
+            positions + offset,
+            s=56,
+            color=colour,
+            label=label,
+            edgecolor=SURFACE,
+            linewidth=1.5,
+            clip_on=False,
         )
     axis.set_yticks(positions, order)
     axis.set_xlabel("Image-level AUROC (higher is better)")
@@ -177,13 +187,21 @@ def loadtest() -> None:
     if report is None:
         return
     figure, (left, right) = plt.subplots(1, 2, figsize=(9.5, 3.8))
-    names = (("micro-batching", "Micro-batching"), ("no-batching", "No batching"))
-    for colour, (name, label) in zip(SERIES, names, strict=False):
+    # Colour encodes batching; line style encodes the ONNX graph (solid int8, dashed float).
+    series = (
+        ("quantized-micro-batching", "Int8, micro-batching", SERIES[0], "o-"),
+        ("quantized-no-batching", "Int8, no batching", SERIES[1], "o-"),
+        ("micro-batching", "Float, micro-batching", SERIES[0], "o--"),
+        ("no-batching", "Float, no batching", SERIES[1], "o--"),
+    )
+    for name, label, colour, style in series:
         rows = [row for row in report["rows"] if row["configuration"] == name]
+        if not rows:
+            continue
         clients = [row["concurrent_clients"] for row in rows]
-        left.plot(clients, [row["requests_per_second"] for row in rows], "o-", color=colour)
+        left.plot(clients, [row["requests_per_second"] for row in rows], style, color=colour)
         right.plot(
-            clients, [row["latency_p95_ms"] for row in rows], "o-", color=colour, label=label
+            clients, [row["latency_p95_ms"] for row in rows], style, color=colour, label=label
         )
     left.set_title("Throughput (requests per second)")
     right.set_title("p95 latency (ms)")

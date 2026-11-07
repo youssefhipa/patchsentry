@@ -1,0 +1,894 @@
+{
+  "environment": {
+    "machine": "arm64",
+    "system": "macOS-26.6.2-arm64-arm-64bit",
+    "processor": "Apple M3",
+    "python": "3.12.12",
+    "torch": "2.15.0",
+    "git_commit": "7436c70"
+  },
+  "config": {
+    "data_root": "data/raw/visa",
+    "seed": 0,
+    "calibration_fraction": 0.25,
+    "image_size": 320,
+    "backbone": "wide_resnet50_2",
+    "target_dim": 1024,
+    "neighbourhood": 3,
+    "coreset_fraction": 0.01,
+    "max_pool_patches": 200000,
+    "projection_dim": 128,
+    "reweight_neighbours": 9,
+    "gaussian_sigma": 4.0,
+    "batch_size": 32,
+    "alphas": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "default_alpha": 0.05
+  },
+  "dev_categories": [
+    "candle",
+    "cashew",
+    "macaroni1",
+    "pcb1"
+  ],
+  "summary": {
+    "patchcore": {
+      "all": {
+        "image_auroc": 0.9187957004033735,
+        "image_f1_max": 0.8955431346743852,
+        "pixel_auroc": 0.9825399352611244,
+        "aupro": 0.8839935796917857
+      },
+      "held_out": {
+        "image_auroc": 0.9009935506050605,
+        "image_f1_max": 0.8872163154832885,
+        "pixel_auroc": 0.9779064172798568,
+        "aupro": 0.8569021165741467
+      },
+      "mean_fit_seconds": 205.7218950312777,
+      "seed_std_image_auroc": 0.001289122180335214
+    },
+    "image_knn": {
+      "all": {
+        "image_auroc": 0.8406907590759075,
+        "image_f1_max": 0.8348321181171546,
+        "pixel_auroc": null,
+        "aupro": null
+      },
+      "held_out": {
+        "image_auroc": 0.8433236386138614,
+        "image_f1_max": 0.8467411357905312,
+        "pixel_auroc": null,
+        "aupro": null
+      },
+      "mean_fit_seconds": 30.60917180558378
+    },
+    "padim": {
+      "all": {
+        "image_auroc": 0.848981298129813,
+        "image_f1_max": 0.8416333325894411,
+        "pixel_auroc": 0.967323834416852,
+        "aupro": 0.7927475491680466
+      },
+      "held_out": {
+        "image_auroc": 0.8336469471947194,
+        "image_f1_max": 0.8457909034653048,
+        "pixel_auroc": 0.9596452104375626,
+        "aupro": 0.7566303823778945
+      },
+      "mean_fit_seconds": 32.472296527833045
+    },
+    "autoencoder": {
+      "all": {
+        "image_auroc": 0.6606490374037405,
+        "image_f1_max": 0.7626589295163141,
+        "pixel_auroc": 0.8027123011213059,
+        "aupro": 0.610418507959332
+      },
+      "held_out": {
+        "image_auroc": 0.6463485561056106,
+        "image_f1_max": 0.7667881500213923,
+        "pixel_auroc": 0.8628923475090993,
+        "aupro": 0.6258831038946869
+      },
+      "mean_fit_seconds": 468.99260740966747
+    }
+  },
+  "rows": [
+    {
+      "model": "patchcore_seed0",
+      "category": "candle",
+      "held_out": false,
+      "image_auroc": 0.9635,
+      "image_f1_max": 0.9056603773584906,
+      "pixel_auroc": 0.9928982520705537,
+      "aupro": 0.9643934057329699,
+      "fit_seconds": 144.28233125000042,
+      "scoring_ms_per_image": 44.91872999999032,
+      "bank_size": 10800
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "candle",
+      "held_out": false,
+      "image_auroc": 0.9651,
+      "image_f1_max": 0.9056603773584906,
+      "pixel_auroc": 0.9918884358907961,
+      "aupro": 0.9642074006810074,
+      "fit_seconds": 192.57091520899849,
+      "scoring_ms_per_image": 48.65475937500378,
+      "bank_size": 10800
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "candle",
+      "held_out": false,
+      "image_auroc": 0.9602,
+      "image_f1_max": 0.9056603773584906,
+      "pixel_auroc": 0.9924851602955582,
+      "aupro": 0.9647986295754646,
+      "fit_seconds": 283.71870412499993,
+      "scoring_ms_per_image": 96.78490750000492,
+      "bank_size": 10800
+    },
+    {
+      "model": "image_knn",
+      "category": "candle",
+      "held_out": false,
+      "image_auroc": 0.8937,
+      "image_f1_max": 0.8516746411483254,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 43.641154584001924
+    },
+    {
+      "model": "padim",
+      "category": "candle",
+      "held_out": false,
+      "image_auroc": 0.923,
+      "image_f1_max": 0.8481675392670157,
+      "pixel_auroc": 0.9867179123008497,
+      "aupro": 0.9520691651299648,
+      "fit_seconds": 54.440571624996664
+    },
+    {
+      "model": "autoencoder",
+      "category": "candle",
+      "held_out": false,
+      "image_auroc": 0.6524,
+      "image_f1_max": 0.6987951807228916,
+      "pixel_auroc": 0.7718096750724482,
+      "aupro": 0.6220120656492487,
+      "fit_seconds": 823.1201040000014
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "capsules",
+      "held_out": true,
+      "image_auroc": 0.7096666666666667,
+      "image_f1_max": 0.7692307692307693,
+      "pixel_auroc": 0.9766823032356192,
+      "aupro": 0.7077165628361937,
+      "fit_seconds": 242.43113733299833,
+      "scoring_ms_per_image": 66.66159401249843,
+      "bank_size": 6496
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "capsules",
+      "held_out": true,
+      "image_auroc": 0.717,
+      "image_f1_max": 0.7692307692307693,
+      "pixel_auroc": 0.9750208880679654,
+      "aupro": 0.7376001128049553,
+      "fit_seconds": 258.82711666600153,
+      "scoring_ms_per_image": 63.52038385623473,
+      "bank_size": 6496
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "capsules",
+      "held_out": true,
+      "image_auroc": 0.7246666666666667,
+      "image_f1_max": 0.7734375,
+      "pixel_auroc": 0.9745828779572845,
+      "aupro": 0.7578312356427557,
+      "fit_seconds": 202.34478520799894,
+      "scoring_ms_per_image": 53.3519593750043,
+      "bank_size": 6496
+    },
+    {
+      "model": "image_knn",
+      "category": "capsules",
+      "held_out": true,
+      "image_auroc": 0.739,
+      "image_f1_max": 0.7722007722007722,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 26.89061012499951
+    },
+    {
+      "model": "padim",
+      "category": "capsules",
+      "held_out": true,
+      "image_auroc": 0.5761666666666667,
+      "image_f1_max": 0.7722007722007722,
+      "pixel_auroc": 0.8955757728076432,
+      "aupro": 0.5371885443892146,
+      "fit_seconds": 25.954183416000888
+    },
+    {
+      "model": "autoencoder",
+      "category": "capsules",
+      "held_out": true,
+      "image_auroc": 0.6206666666666667,
+      "image_f1_max": 0.7751937984496124,
+      "pixel_auroc": 0.905533267146202,
+      "aupro": 0.5925615816787656,
+      "fit_seconds": 435.08290045800095
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "cashew",
+      "held_out": false,
+      "image_auroc": 0.9726,
+      "image_f1_max": 0.945273631840796,
+      "pixel_auroc": 0.9892532309112682,
+      "aupro": 0.9257513296593575,
+      "fit_seconds": 171.31647295799849,
+      "scoring_ms_per_image": 53.580692499987585,
+      "bank_size": 5408
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "cashew",
+      "held_out": false,
+      "image_auroc": 0.9724,
+      "image_f1_max": 0.9552238805970149,
+      "pixel_auroc": 0.9882575944897775,
+      "aupro": 0.921436573701292,
+      "fit_seconds": 145.52551383399987,
+      "scoring_ms_per_image": 38.929274166657706,
+      "bank_size": 5408
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "cashew",
+      "held_out": false,
+      "image_auroc": 0.971,
+      "image_f1_max": 0.9489795918367347,
+      "pixel_auroc": 0.990148882094149,
+      "aupro": 0.9195354128264555,
+      "fit_seconds": 144.77568404200065,
+      "scoring_ms_per_image": 48.76749472001393,
+      "bank_size": 5408
+    },
+    {
+      "model": "image_knn",
+      "category": "cashew",
+      "held_out": false,
+      "image_auroc": 0.9728,
+      "image_f1_max": 0.9547738693467337,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 23.64894862499932
+    },
+    {
+      "model": "padim",
+      "category": "cashew",
+      "held_out": false,
+      "image_auroc": 0.9114,
+      "image_f1_max": 0.896551724137931,
+      "pixel_auroc": 0.9913857389015388,
+      "aupro": 0.8437861768303825,
+      "fit_seconds": 22.62953487499908
+    },
+    {
+      "model": "autoencoder",
+      "category": "cashew",
+      "held_out": false,
+      "image_auroc": 0.8962,
+      "image_f1_max": 0.909952606635071,
+      "pixel_auroc": 0.2657955209318732,
+      "aupro": 0.3928212237732029,
+      "fit_seconds": 371.6954474999984
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "chewinggum",
+      "held_out": true,
+      "image_auroc": 0.9936,
+      "image_f1_max": 0.98989898989899,
+      "pixel_auroc": 0.9858074162447971,
+      "aupro": 0.8511181366830844,
+      "fit_seconds": 164.6511849999988,
+      "scoring_ms_per_image": 42.09554527333239,
+      "bank_size": 5440
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "chewinggum",
+      "held_out": true,
+      "image_auroc": 0.9868,
+      "image_f1_max": 0.9795918367346939,
+      "pixel_auroc": 0.9852837406219039,
+      "aupro": 0.8565698934693141,
+      "fit_seconds": 141.23240879199875,
+      "scoring_ms_per_image": 40.121131386670946,
+      "bank_size": 5440
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "chewinggum",
+      "held_out": true,
+      "image_auroc": 0.9968,
+      "image_f1_max": 0.98989898989899,
+      "pixel_auroc": 0.9850665696679445,
+      "aupro": 0.8543975962488931,
+      "fit_seconds": 142.7421083750014,
+      "scoring_ms_per_image": 43.85109166665643,
+      "bank_size": 5440
+    },
+    {
+      "model": "image_knn",
+      "category": "chewinggum",
+      "held_out": true,
+      "image_auroc": 0.9498,
+      "image_f1_max": 0.9261083743842364,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 23.004473332999623
+    },
+    {
+      "model": "padim",
+      "category": "chewinggum",
+      "held_out": true,
+      "image_auroc": 0.9668,
+      "image_f1_max": 0.9607843137254902,
+      "pixel_auroc": 0.9783777129936946,
+      "aupro": 0.8051026304338981,
+      "fit_seconds": 21.386852332998387
+    },
+    {
+      "model": "autoencoder",
+      "category": "chewinggum",
+      "held_out": true,
+      "image_auroc": 0.8136,
+      "image_f1_max": 0.8527918781725888,
+      "pixel_auroc": 0.6433888945720766,
+      "aupro": 0.23128818986956803,
+      "fit_seconds": 311.67792045900205
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "fryum",
+      "held_out": true,
+      "image_auroc": 0.935,
+      "image_f1_max": 0.9064039408866995,
+      "pixel_auroc": 0.945783858608607,
+      "aupro": 0.8409450565076941,
+      "fit_seconds": 145.51411645900225,
+      "scoring_ms_per_image": 40.736831666678576,
+      "bank_size": 5408
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "fryum",
+      "held_out": true,
+      "image_auroc": 0.9432,
+      "image_f1_max": 0.9090909090909091,
+      "pixel_auroc": 0.9479269437656407,
+      "aupro": 0.8335646335385205,
+      "fit_seconds": 152.7346712920007,
+      "scoring_ms_per_image": 43.55503722001837,
+      "bank_size": 5408
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "fryum",
+      "held_out": true,
+      "image_auroc": 0.9428,
+      "image_f1_max": 0.9117647058823529,
+      "pixel_auroc": 0.9482512588087163,
+      "aupro": 0.8386886483594693,
+      "fit_seconds": 158.3830554169981,
+      "scoring_ms_per_image": 67.69804221999948,
+      "bank_size": 5408
+    },
+    {
+      "model": "image_knn",
+      "category": "fryum",
+      "held_out": true,
+      "image_auroc": 0.9696,
+      "image_f1_max": 0.9658536585365853,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 23.076512874999025
+    },
+    {
+      "model": "padim",
+      "category": "fryum",
+      "held_out": true,
+      "image_auroc": 0.8758,
+      "image_f1_max": 0.8743718592964824,
+      "pixel_auroc": 0.9578234862173696,
+      "aupro": 0.6928620115878504,
+      "fit_seconds": 29.27662650000275
+    },
+    {
+      "model": "autoencoder",
+      "category": "fryum",
+      "held_out": true,
+      "image_auroc": 0.822,
+      "image_f1_max": 0.8401826484018264,
+      "pixel_auroc": 0.8865450923509978,
+      "aupro": 0.77170842416266,
+      "fit_seconds": 327.8505592500005
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "macaroni1",
+      "held_out": false,
+      "image_auroc": 0.9099,
+      "image_f1_max": 0.863849765258216,
+      "pixel_auroc": 0.9887508530886328,
+      "aupro": 0.9186451041104595,
+      "fit_seconds": 298.1558893750007,
+      "scoring_ms_per_image": 112.66809229500723,
+      "bank_size": 10800
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "macaroni1",
+      "held_out": false,
+      "image_auroc": 0.9086,
+      "image_f1_max": 0.8465116279069768,
+      "pixel_auroc": 0.9864125137959392,
+      "aupro": 0.9173952669018881,
+      "fit_seconds": 295.9939200000008,
+      "scoring_ms_per_image": 82.64842479498839,
+      "bank_size": 10800
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "macaroni1",
+      "held_out": false,
+      "image_auroc": 0.919,
+      "image_f1_max": 0.8506787330316742,
+      "pixel_auroc": 0.9881559892604651,
+      "aupro": 0.9161445665389634,
+      "fit_seconds": 308.35819462499785,
+      "scoring_ms_per_image": 83.67261375000453,
+      "bank_size": 10800
+    },
+    {
+      "model": "image_knn",
+      "category": "macaroni1",
+      "held_out": false,
+      "image_auroc": 0.6398,
+      "image_f1_max": 0.6808510638297872,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 45.708351834000496
+    },
+    {
+      "model": "padim",
+      "category": "macaroni1",
+      "held_out": false,
+      "image_auroc": 0.7791,
+      "image_f1_max": 0.759493670886076,
+      "pixel_auroc": 0.9628221883219971,
+      "aupro": 0.8258067654865563,
+      "fit_seconds": 49.24097733400049
+    },
+    {
+      "model": "autoencoder",
+      "category": "macaroni1",
+      "held_out": false,
+      "image_auroc": 0.7656,
+      "image_f1_max": 0.7421875,
+      "pixel_auroc": 0.9722182629709318,
+      "aupro": 0.7519957292295623,
+      "fit_seconds": 685.2719726659998
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "macaroni2",
+      "held_out": true,
+      "image_auroc": 0.6623,
+      "image_f1_max": 0.697841726618705,
+      "pixel_auroc": 0.9656712485998109,
+      "aupro": 0.8376369297542723,
+      "fit_seconds": 291.57079212499957,
+      "scoring_ms_per_image": 88.34055687499131,
+      "bank_size": 10800
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "macaroni2",
+      "held_out": true,
+      "image_auroc": 0.6667,
+      "image_f1_max": 0.7032967032967034,
+      "pixel_auroc": 0.9584086683822085,
+      "aupro": 0.8152346230659915,
+      "fit_seconds": 285.6286810840029,
+      "scoring_ms_per_image": 93.68857583500358,
+      "bank_size": 10800
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "macaroni2",
+      "held_out": true,
+      "image_auroc": 0.6609,
+      "image_f1_max": 0.7104247104247104,
+      "pixel_auroc": 0.9586692150931209,
+      "aupro": 0.8195550523585,
+      "fit_seconds": 279.35404766699867,
+      "scoring_ms_per_image": 84.54419896001127,
+      "bank_size": 10800
+    },
+    {
+      "model": "image_knn",
+      "category": "macaroni2",
+      "held_out": true,
+      "image_auroc": 0.5037,
+      "image_f1_max": 0.6802721088435374,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 44.143649957997695
+    },
+    {
+      "model": "padim",
+      "category": "macaroni2",
+      "held_out": true,
+      "image_auroc": 0.6646,
+      "image_f1_max": 0.7104247104247104,
+      "pixel_auroc": 0.9271883411382874,
+      "aupro": 0.685226722830439,
+      "fit_seconds": 43.20287649999955
+    },
+    {
+      "model": "autoencoder",
+      "category": "macaroni2",
+      "held_out": true,
+      "image_auroc": 0.5766,
+      "image_f1_max": 0.6688963210702341,
+      "pixel_auroc": 0.966795074745057,
+      "aupro": 0.7207585209136252,
+      "fit_seconds": 668.0728473329982
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "pcb1",
+      "held_out": false,
+      "image_auroc": 0.9711,
+      "image_f1_max": 0.9353233830845771,
+      "pixel_auroc": 0.9976165352537235,
+      "aupro": 0.9518431361215703,
+      "fit_seconds": 313.93317883299824,
+      "scoring_ms_per_image": 99.19516853999085,
+      "bank_size": 10848
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "pcb1",
+      "held_out": false,
+      "image_auroc": 0.969,
+      "image_f1_max": 0.9371980676328503,
+      "pixel_auroc": 0.9978810892042159,
+      "aupro": 0.9468848356624101,
+      "fit_seconds": 296.77754779099996,
+      "scoring_ms_per_image": 90.96766417000254,
+      "bank_size": 10848
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "pcb1",
+      "held_out": false,
+      "image_auroc": 0.9704,
+      "image_f1_max": 0.9463414634146341,
+      "pixel_auroc": 0.9979351183288327,
+      "aupro": 0.9470824096129205,
+      "fit_seconds": 286.3473856669989,
+      "scoring_ms_per_image": 100.6867460399917,
+      "bank_size": 10848
+    },
+    {
+      "model": "image_knn",
+      "category": "pcb1",
+      "held_out": false,
+      "image_auroc": 0.8354,
+      "image_f1_max": 0.7567567567567568,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 42.39147462500114
+    },
+    {
+      "model": "padim",
+      "category": "pcb1",
+      "held_out": false,
+      "image_auroc": 0.9051,
+      "image_f1_max": 0.8290598290598291,
+      "pixel_auroc": 0.9897984899773377,
+      "aupro": 0.8382654235464978,
+      "fit_seconds": 46.146075084001495
+    },
+    {
+      "model": "autoencoder",
+      "category": "pcb1",
+      "held_out": false,
+      "image_auroc": 0.4428,
+      "image_f1_max": 0.6666666666666666,
+      "pixel_auroc": 0.7195853744076244,
+      "aupro": 0.5511282457024735,
+      "fit_seconds": 454.81141987500087
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "pcb2",
+      "held_out": true,
+      "image_auroc": 0.9589,
+      "image_f1_max": 0.916256157635468,
+      "pixel_auroc": 0.9896301512452491,
+      "aupro": 0.9131411323201918,
+      "fit_seconds": 207.71267358299883,
+      "scoring_ms_per_image": 58.412149579999095,
+      "bank_size": 10816
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "pcb2",
+      "held_out": true,
+      "image_auroc": 0.9574,
+      "image_f1_max": 0.914572864321608,
+      "pixel_auroc": 0.9898806514202038,
+      "aupro": 0.919058988355707,
+      "fit_seconds": 187.91915266699652,
+      "scoring_ms_per_image": 61.279094375022396,
+      "bank_size": 10816
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "pcb2",
+      "held_out": true,
+      "image_auroc": 0.9585,
+      "image_f1_max": 0.9081632653061225,
+      "pixel_auroc": 0.988974081832437,
+      "aupro": 0.9057221163050848,
+      "fit_seconds": 198.8662456250022,
+      "scoring_ms_per_image": 66.53081125001336,
+      "bank_size": 10816
+    },
+    {
+      "model": "image_knn",
+      "category": "pcb2",
+      "held_out": true,
+      "image_auroc": 0.9668,
+      "image_f1_max": 0.9082125603864735,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 29.197790666999936
+    },
+    {
+      "model": "padim",
+      "category": "pcb2",
+      "held_out": true,
+      "image_auroc": 0.9065,
+      "image_f1_max": 0.8571428571428571,
+      "pixel_auroc": 0.9837447946938624,
+      "aupro": 0.86500437022714,
+      "fit_seconds": 30.475064416998066
+    },
+    {
+      "model": "autoencoder",
+      "category": "pcb2",
+      "held_out": true,
+      "image_auroc": 0.3605,
+      "image_f1_max": 0.6711409395973155,
+      "pixel_auroc": 0.8794861100376393,
+      "aupro": 0.6926363826363914,
+      "fit_seconds": 510.0750431250053
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "pcb3",
+      "held_out": true,
+      "image_auroc": 0.9435643564356435,
+      "image_f1_max": 0.875,
+      "pixel_auroc": 0.9899576579462963,
+      "aupro": 0.8693987058673802,
+      "fit_seconds": 247.6691810830016,
+      "scoring_ms_per_image": 78.0137777811021,
+      "bank_size": 10864
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "pcb3",
+      "held_out": true,
+      "image_auroc": 0.9469306930693069,
+      "image_f1_max": 0.8673469387755102,
+      "pixel_auroc": 0.9902504543477285,
+      "aupro": 0.8660557487095905,
+      "fit_seconds": 210.26364170799934,
+      "scoring_ms_per_image": 55.45891604477636,
+      "bank_size": 10864
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "pcb3",
+      "held_out": true,
+      "image_auroc": 0.9531683168316831,
+      "image_f1_max": 0.8865979381443299,
+      "pixel_auroc": 0.9897028357501338,
+      "aupro": 0.8540089600519796,
+      "fit_seconds": 195.99936579200585,
+      "scoring_ms_per_image": 61.18344008956314,
+      "bank_size": 10864
+    },
+    {
+      "model": "image_knn",
+      "category": "pcb3",
+      "held_out": true,
+      "image_auroc": 0.8263366336633663,
+      "image_f1_max": 0.7843137254901961,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 26.4551525410061
+    },
+    {
+      "model": "padim",
+      "category": "pcb3",
+      "held_out": true,
+      "image_auroc": 0.7771287128712872,
+      "image_f1_max": 0.7384615384615385,
+      "pixel_auroc": 0.9779663941061519,
+      "aupro": 0.7474041918669226,
+      "fit_seconds": 26.520583999998053
+    },
+    {
+      "model": "autoencoder",
+      "category": "pcb3",
+      "held_out": true,
+      "image_auroc": 0.5034653465346535,
+      "image_f1_max": 0.6644518272425249,
+      "pixel_auroc": 0.8585567904285185,
+      "aupro": 0.772015554565304,
+      "fit_seconds": 390.6782322919971
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "pcb4",
+      "held_out": true,
+      "image_auroc": 0.9957425742574257,
+      "image_f1_max": 0.9702970297029703,
+      "pixel_auroc": 0.9833465208744314,
+      "aupro": 0.8849269418806979,
+      "fit_seconds": 174.48740858399833,
+      "scoring_ms_per_image": 50.25884038310432,
+      "bank_size": 10848
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "pcb4",
+      "held_out": true,
+      "image_auroc": 0.9943564356435644,
+      "image_f1_max": 0.964824120603015,
+      "pixel_auroc": 0.9823237856361636,
+      "aupro": 0.8809040459990818,
+      "fit_seconds": 175.62314033300208,
+      "scoring_ms_per_image": 54.97379747262967,
+      "bank_size": 10848
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "pcb4",
+      "held_out": true,
+      "image_auroc": 0.995049504950495,
+      "image_f1_max": 0.9651741293532339,
+      "pixel_auroc": 0.9823582419584602,
+      "aupro": 0.8823296130601598,
+      "fit_seconds": 182.416461832996,
+      "scoring_ms_per_image": 51.261103233800036,
+      "bank_size": 10848
+    },
+    {
+      "model": "image_knn",
+      "category": "pcb4",
+      "held_out": true,
+      "image_auroc": 0.8747524752475248,
+      "image_f1_max": 0.8446601941747572,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 24.61773570800142
+    },
+    {
+      "model": "padim",
+      "category": "pcb4",
+      "held_out": true,
+      "image_auroc": 0.991980198019802,
+      "image_f1_max": 0.9607843137254902,
+      "pixel_auroc": 0.9628142489637177,
+      "aupro": 0.817140329070533,
+      "fit_seconds": 25.804604500001005
+    },
+    {
+      "model": "autoencoder",
+      "category": "pcb4",
+      "held_out": true,
+      "image_auroc": 0.8543564356435643,
+      "image_f1_max": 0.8583690987124464,
+      "pixel_auroc": 0.8329838497379313,
+      "aupro": 0.4286902794241885,
+      "fit_seconds": 434.30152154200186
+    },
+    {
+      "model": "patchcore_seed0",
+      "category": "pipe_fryum",
+      "held_out": true,
+      "image_auroc": 0.9922,
+      "image_f1_max": 0.9690721649484536,
+      "pixel_auroc": 0.9918301615967944,
+      "aupro": 0.9479767023106436,
+      "fit_seconds": 86.88296699999773,
+      "scoring_ms_per_image": 33.55307444668142,
+      "bank_size": 5408
+    },
+    {
+      "model": "patchcore_seed1",
+      "category": "pipe_fryum",
+      "held_out": true,
+      "image_auroc": 0.9954,
+      "image_f1_max": 0.9795918367346939,
+      "pixel_auroc": 0.9920744383897162,
+      "aupro": 0.9442001692287338,
+      "fit_seconds": 97.7617727080069,
+      "scoring_ms_per_image": 27.735534166713478,
+      "bank_size": 5408
+    },
+    {
+      "model": "patchcore_seed2",
+      "category": "pipe_fryum",
+      "held_out": true,
+      "image_auroc": 0.9932,
+      "image_f1_max": 0.966183574879227,
+      "pixel_auroc": 0.992270044665331,
+      "aupro": 0.9470691924206287,
+      "fit_seconds": 93.21636708299775,
+      "scoring_ms_per_image": 29.166616386646638,
+      "bank_size": 5408
+    },
+    {
+      "model": "image_knn",
+      "category": "pipe_fryum",
+      "held_out": true,
+      "image_auroc": 0.9166,
+      "image_f1_max": 0.8923076923076924,
+      "pixel_auroc": null,
+      "aupro": null,
+      "fit_seconds": 14.534206791999168
+    },
+    {
+      "model": "padim",
+      "category": "pipe_fryum",
+      "held_out": true,
+      "image_auroc": 0.9102,
+      "image_f1_max": 0.8921568627450981,
+      "pixel_auroc": 0.9936709325797745,
+      "aupro": 0.903114258617158,
+      "fit_seconds": 14.589607750000141
+    },
+    {
+      "model": "autoencoder",
+      "category": "pipe_fryum",
+      "held_out": true,
+      "image_auroc": 0.6196,
+      "image_f1_max": 0.8032786885245902,
+      "pixel_auroc": 0.9298497010543713,
+      "aupro": 0.7974058979069928,
+      "fit_seconds": 215.27332041600312
+    }
+  ]
+}

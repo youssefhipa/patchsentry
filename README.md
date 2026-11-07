@@ -28,21 +28,24 @@ Update this section whenever a step is finished, including anything that failed.
 | 3 | Scaffold repository, dependencies, git | Done |
 | 4 | Download dataset | Done: 10,821 samples, no missing files |
 | 5 | Data ingestion and preprocessing | Done |
-| 6 | Baselines: autoencoder, PaDiM, image-level k-NN | Code done, run in step 8 |
-| 7 | PatchCore | Done: first check on `pcb1` worked |
-| 8 | Sweep on development categories, then full model comparison | Sweep done (320 px adopted, `configs/default.yaml`); **comparison running** |
-| 9 | Build bundle: ONNX, quantisation, conformal calibration, drift check | Code done, not run |
-| 10 | Verify the serving path; latency, throughput and load benchmarks | Code done, not run |
-| 11 | FastAPI service | Done and tested on a small synthetic bundle |
-| 12 | pytest, ruff, mypy | Passing (107 tests); rerun before publishing |
-| 13 | Docker, Compose, GitHub Actions | Written, **not yet run**: Docker's VM did not respond while the sweep held the RAM; retry after training |
-| 14 | Final README: results, figures, CV bullets | In progress |
-| 15 | Secret scan, publish public GitHub repo | Not started |
+| 6 | Baselines: autoencoder, PaDiM, image-level k-NN | Done: run on all 12 categories |
+| 7 | PatchCore | Done |
+| 8 | Sweep on development categories, then full model comparison | Done: 320 px adopted; 72 benchmark runs |
+| 9 | Build bundle: ONNX, quantisation, conformal calibration, drift check | Done |
+| 10 | Verify the serving path; latency, throughput and load benchmarks | Done, including an int8 load test |
+| 11 | FastAPI service | Done; tested, and load-tested on the real bundle |
+| 12 | pytest, ruff, mypy | Passing (108 tests) |
+| 13 | Docker, Compose, GitHub Actions | CI builds the Docker image on every push. Compose with PostgreSQL has **not** been run locally: Docker's VM did not respond on this 16 GB machine during training |
+| 14 | Final README: results and figures | Done |
+| 15 | Secret scan, publish public GitHub repo | Done: https://github.com/youssefhipa/patchsentry |
 
-**Next step:** a chained background job runs `make benchmark bundle verify bench loadtest`, logging to
-`~/.local/share/patchsentry/chain.log`. When it finishes, run `make figures report`, check the README
-tables, retry Docker (build the image, then `docker compose up`), rerun tests and lint, then publish.
-If the chain died, rerun just the failed target: each one writes its own report in `reports/`.
+**Next step:** the project is complete. Open items, all optional:
+- Run `docker compose up` locally once Docker has free RAM.
+- Benchmark on a CUDA GPU.
+- Load-test the CoreML execution provider end to end.
+
+If any report needs regenerating, each `make` target writes its own file in `reports/`. Then run
+`make figures report`.
 
 **Machine notes (read before running anything on the author's Mac)**
 - This folder is on the iCloud-synced Desktop and the disk is nearly full, so macOS evicts files to the
@@ -85,8 +88,23 @@ the reported test set, so they are optimistic by comparison.
 Mean over the eight held-out categories; PatchCore is also averaged over three coreset seeds.
 
 <!-- results:models -->
-*Pending.*
+| Model | Image AUROC | Image F1-max | Pixel AUROC | AUPRO | Image AUROC (all 12) | AUPRO (all 12) | Fit (s) |
+|---|---|---|---|---|---|---|---|
+| **PatchCore (this project)** | 0.901 | 0.887 | 0.978 | 0.857 | 0.919 | 0.884 | 206 |
+| PaDiM | 0.834 | 0.846 | 0.960 | 0.757 | 0.849 | 0.793 | 32 |
+| Image-level k-NN | 0.843 | 0.847 | n/a | n/a | 0.841 | n/a | 31 |
+| Convolutional autoencoder | 0.646 | 0.767 | 0.863 | 0.626 | 0.661 | 0.610 | 469 |
 <!-- /results:models -->
+
+On the held-out categories, PatchCore leads every column. It improves image AUROC by 0.067 over PaDiM and
+by 0.058 over image-level k-NN, and AUPRO by 0.10 over PaDiM. The three coreset seeds differ by a standard
+deviation of only 0.0013 AUROC. It does not win everywhere, though:
+
+- On **capsules**, **fryum** and **pcb2**, the simple image-level k-NN matches or beats PatchCore at
+  *detecting* a defective image. It cannot say *where* the defect is, which is what AUPRO measures.
+- **macaroni2** (0.66) and **capsules** (0.72) are hard for every model tested.
+- The autoencoder falls below 0.5 on pcb2 and near it on pcb3. It reconstructs defects about as well as
+  normal parts, so its error does not separate them.
 
 ![Detection quality per category](reports/figures/model_comparison.png)
 
@@ -94,15 +112,44 @@ Mean over the eight held-out categories; PatchCore is also averaged over three c
 <summary>Per-category results</summary>
 
 <!-- results:per_category -->
-*Pending.*
+| Category | Role | PatchCore AUROC | PaDiM AUROC | Autoencoder AUROC | k-NN AUROC | PatchCore AUPRO | PaDiM AUPRO |
+|---|---|---|---|---|---|---|---|
+| candle | development | 0.963 | 0.923 | 0.652 | 0.894 | 0.964 | 0.952 |
+| capsules | held out | 0.717 | 0.576 | 0.621 | 0.739 | 0.734 | 0.537 |
+| cashew | development | 0.972 | 0.911 | 0.896 | 0.973 | 0.922 | 0.844 |
+| chewinggum | held out | 0.992 | 0.967 | 0.814 | 0.950 | 0.854 | 0.805 |
+| fryum | held out | 0.940 | 0.876 | 0.822 | 0.970 | 0.838 | 0.693 |
+| macaroni1 | development | 0.912 | 0.779 | 0.766 | 0.640 | 0.917 | 0.826 |
+| macaroni2 | held out | 0.663 | 0.665 | 0.577 | 0.504 | 0.824 | 0.685 |
+| pcb1 | development | 0.970 | 0.905 | 0.443 | 0.835 | 0.949 | 0.838 |
+| pcb2 | held out | 0.958 | 0.906 | 0.360 | 0.967 | 0.913 | 0.865 |
+| pcb3 | held out | 0.948 | 0.777 | 0.503 | 0.826 | 0.863 | 0.747 |
+| pcb4 | held out | 0.995 | 0.992 | 0.854 | 0.875 | 0.883 | 0.817 |
+| pipe_fryum | held out | 0.994 | 0.910 | 0.620 | 0.917 | 0.946 | 0.903 |
 <!-- /results:per_category -->
 </details>
 
 ### Calibrated false alarm rates
 
 <!-- results:conformal -->
-*Pending.*
+| Target false alarm rate | Conformal, resampled splits | Conformal, official test split | Naive threshold (training scores) | Defects caught at this threshold |
+|---|---|---|---|---|
+| 1.0% | 0.9% | 1.8% | 6.0% | 58.2% |
+| 5.0% | 4.7% | 5.0% | 16.8% | 73.9% |
+| 10.0% | 9.7% | 9.6% | 26.7% | 80.8% |
 <!-- /results:conformal -->
+
+Rates are averaged over all 12 categories. "Resampled" redraws the calibration and test split of normal
+images 2,000 times.
+
+- **Conformal thresholds keep their promise.** At a 5% target the observed rate is 4.7% resampled and 5.0%
+  on the official split.
+- **The naive approach fails badly.** Setting the threshold at a quantile of the training images' scores gives
+  16.8%, more than three times the target. Those images built the memory bank, so they score unrealistically
+  low.
+- **At a 1% target, the official split shows 1.8%.** This is the expected variance of a single small
+  calibration set, as the Beta distribution in "How it works" describes, not a broken bound. The average over
+  resampled splits is 0.9%.
 
 ![Observed against target false alarm rate](reports/figures/conformal_calibration.png)
 
@@ -114,43 +161,132 @@ and TensorRT are **not** benchmarked here.
 **Feature extraction by runtime**
 
 <!-- results:backbone -->
-*Pending.*
+| Runtime | Images/s, batch 1 | Images/s, batch 8 | Images/s, batch 16 | Images/s, batch 32 | Latency, batch 1 (ms) |
+|---|---|---|---|---|---|
+| pytorch-cpu | 20 | 22 | 3 | 3 | 51.1 |
+| pytorch-mps | 38 | 36 | 37 | 35 | 26.3 |
+| onnx-cpu-float | 6 | 6 | 7 | 7 | 163.4 |
+| onnx-cpu-quantized | 22 | 22 | 22 | 22 | 46.2 |
+| onnx-coreml | 133 | 139 | 139 | 142 | 7.5 |
 <!-- /results:backbone -->
+
+- **CoreML** on the M3 is the fastest runtime, at 139 images/s. That is 20 times the float ONNX CPU path.
+- **Int8 quantisation** makes ONNX on CPU 3.7 times faster, with no loss of accuracy (see below).
+- **Two results I have not profiled:**
+  - Float ONNX on CPU is slower than PyTorch on CPU at small batches.
+  - PyTorch on CPU dropped to 3 images/s at batch 16 and above. That may be memory pressure on this
+    16 GB machine.
 
 ![Backbone throughput](reports/figures/backbone_throughput.png)
 
 **Nearest-neighbour search**
 
 <!-- results:index -->
-*Pending.*
+| Index | Search p50 (ms/image) | Search p95 (ms/image) | Recall@1 vs exact | Image AUROC | Build (s) | Size (MB) |
+|---|---|---|---|---|---|---|
+| flat | 38.2 | 39.5 | 1.000 | 0.866 | 0.0 | 44 |
+| hnsw | 25.9 | 27.7 | 1.000 | 0.866 | 0.6 | 47 |
+| ivf | 75.8 | 84.3 | 1.000 | 0.866 | 0.1 | 45 |
 <!-- /results:index -->
+
+The bank of about 44 MB, on candle, pcb1 and macaroni2, is small enough for every index to reach recall 1.0.
+**HNSW** searches 1.5 times faster than exact search. IVF is slower than exact search at the settings used,
+because it does not pay off at this bank size. Search takes 26 to 38 ms per image, comparable to the int8
+backbone, so at 320 px the search is a real share of the latency.
 
 **Quantisation, measured through the deployed path on all 12 categories**
 
 <!-- results:quantization -->
-*Pending.*
+| ONNX graph | Image AUROC | AUPRO | False alarm rate (target 5%) | Defects caught |
+|---|---|---|---|---|
+| float | 0.917 | 0.884 | 5.0% | 73.9% |
+| quantized | 0.918 | 0.889 | 4.2% | 72.3% |
 <!-- /results:quantization -->
 
-**Load test over HTTP**, with the client on the same machine
+Int8 quantisation costs nothing measurable: image AUROC is 0.918 against 0.917, and the false alarm rate
+stays within its target, using thresholds recalibrated for the int8 graph. Separately, the float ONNX graph
+matches PyTorch features to within 4e-6 (`reports/onnx_parity.json`).
+
+**Load test over HTTP** on `pcb1` (CPU execution provider, FAISS flat index), with the client on the same
+machine, 30 s per row
 
 <!-- results:loadtest -->
-*Pending.*
+| Configuration | Clients | Requests/s | p50 (ms) | p95 (ms) | p99 (ms) | Mean batch | Errors |
+|---|---|---|---|---|---|---|---|
+| no-batching | 1 | 5.6 | 179 | 186 | 193 | 1.0 | 0 |
+| no-batching | 4 | 5.6 | 708 | 719 | 722 | 1.0 | 0 |
+| no-batching | 16 | 5.5 | 2902 | 2947 | 3000 | 1.0 | 0 |
+| no-batching | 32 | 5.3 | 5916 | 6160 | 6175 | 1.0 | 0 |
+| micro-batching | 1 | 5.1 | 196 | 199 | 210 | 1.0 | 0 |
+| micro-batching | 4 | 5.1 | 791 | 821 | 837 | 2.1 | 0 |
+| micro-batching | 16 | 5.5 | 2928 | 2997 | 3025 | 7.7 | 0 |
+| micro-batching | 32 | 5.2 | 6122 | 6391 | 6418 | 14.8 | 0 |
+| quantized-no-batching | 1 | 10.6 | 94 | 96 | 102 | 1.0 | 0 |
+| quantized-no-batching | 4 | 11.3 | 350 | 388 | 428 | 1.0 | 0 |
+| quantized-no-batching | 16 | 11.4 | 1388 | 1422 | 1491 | 1.0 | 0 |
+| quantized-no-batching | 32 | 11.3 | 2781 | 3069 | 3126 | 1.0 | 0 |
+| quantized-micro-batching | 1 | 10.1 | 99 | 102 | 105 | 1.0 | 0 |
+| quantized-micro-batching | 4 | 11.5 | 345 | 378 | 408 | 2.0 | 0 |
+| quantized-micro-batching | 16 | 11.7 | 1354 | 1436 | 1468 | 8.0 | 0 |
+| quantized-micro-batching | 32 | 11.6 | 2727 | 2966 | 3032 | 15.4 | 0 |
 <!-- /results:loadtest -->
 
 ![Load test](reports/figures/loadtest.png)
 
+**What the load test shows:**
+
+- **Int8 doubles end-to-end throughput**, from 5.5 to 11.6 requests/s, and halves latency. That is why
+  Docker Compose serves the int8 graph by default.
+- **Micro-batching does fill batches**, to a mean of 15 at 32 clients, but it adds at most 3% throughput on
+  CPU. The runtime table above explains why: on CPU, ONNX Runtime already spreads a single image across every
+  core, so images per second are flat across batch sizes. Batching pays off on accelerators, where a batch of
+  1 leaves the device idle; CoreML, for example, gains from batch 1 to 32.
+- **Hypothesis disproved:** I expected micro-batching to raise CPU throughput, and this result shows it does
+  not. What does matter under overload is the bounded queue: it returns `503` instead of letting latency grow
+  without limit.
+- **Zero errors** across 16 configurations.
+
 ### Drift monitoring
 
 <!-- results:drift -->
-*Pending.*
+| Stream | Categories flagged (KS p < 0.001) |
+|---|---|
+| Clean normal images | 0 of 12 |
+| Normal images, 30% darker | 12 of 12 |
+| Normal images, defocus blur | 12 of 12 |
 <!-- /results:drift -->
+
+The monitor never fired on clean normal streams, and it caught both simulated shifts in every category,
+without any labels.
 
 ### Hyperparameter sweep
 
-One change at a time from the baseline, on the development categories.
+One change at a time from the baseline, on the development categories. The objective is the mean of image
+AUROC and AUPRO.
+
+- **Raising the input from 224 to 320 px** gave the largest gain, +0.039 on the objective, at four times the
+  search time. It was adopted.
+- **Adding ResNet-50 or 512-dim features on top of 320 px** added nothing more.
+- **The bank size trades accuracy against speed.** A 0.1% coreset searches 5 times faster but loses 0.06
+  objective.
+- **A defect fixed along the way:** `reweight_neighbours=1` first gave AUROC 0.50, because of a degenerate
+  formula. After the fix, which has a regression test, it scores 0.928. Score reweighting therefore barely
+  matters on VisA.
 
 <!-- results:sweep -->
-*Pending.*
+| Change from baseline | Image AUROC | AUPRO | Objective | Fit (s) | Search (ms/image) |
+|---|---|---|---|---|---|
+| baseline | 0.926 | 0.889 | 0.908 | 80 | 10.3 |
+| backbone=resnet18 | 0.921 | 0.902 | 0.912 | 76 | 7.8 |
+| backbone=resnet50 | 0.936 | 0.913 | 0.925 | 79 | 11.3 |
+| image_size=320 | 0.954 | 0.940 | 0.947 | 159 | 44.3 |
+| target_dim=512 | 0.936 | 0.888 | 0.912 | 83 | 9.4 |
+| neighbourhood=5 | 0.891 | 0.832 | 0.862 | 85 | 11.5 |
+| coreset_fraction=0.001 | 0.878 | 0.813 | 0.846 | 10 | 2.1 |
+| coreset_fraction=0.05 | 0.930 | 0.897 | 0.913 | 397 | 61.8 |
+| reweight_neighbours=1 | 0.928 | 0.889 | 0.909 | 80 | 11.8 |
+| backbone=resnet50,image_size=320 | 0.947 | 0.939 | 0.943 | 140 | 38.7 |
+| image_size=320,target_dim=512 | 0.953 | 0.931 | 0.942 | 154 | 37.1 |
 <!-- /results:sweep -->
 
 ### Example detections
@@ -242,9 +378,10 @@ image's score, choosing the threshold as the `k`-th smallest score, where `k = c
 **Drift monitor.** Normal images give approximately uniform conformal p-values. The service runs a
 Kolmogorov-Smirnov test on a rolling window to detect a shift in the score distribution, without needing labels.
 
-**Micro-batching.** A batched forward pass costs less per image. The first request in an empty queue starts a
-short timer, and requests arriving meanwhile share its batch. Under light load, the extra wait is at most the
-timer. Under heavy load, batches fill before it fires.
+**Micro-batching.** On accelerators, a batched forward pass costs less per image. The first request in an
+empty queue starts a short timer, and requests arriving meanwhile share its batch. Under light load, the extra
+wait is at most the timer. Under heavy load, batches fill before it fires. On CPU the gain is small; see the
+load test.
 
 ## Technical decisions and trade-offs
 
@@ -354,8 +491,12 @@ configs/  reports/  Dockerfile  docker-compose.yml  .github/workflows/ci.yml
 
 ## Limitations
 
-- Results are at low input resolution, so very small defects can disappear. Published VisA figures may use other
-  resolutions and splits, so direct comparison needs care.
+- Inputs are 320 px, while VisA originals are about 1500 px, so very small defects can disappear. The gallery
+  shows such misses. Published VisA results often use other resolutions, and some tune on the test set, so
+  compare with care.
+- Some categories remain hard: macaroni2 scores 0.66 image AUROC and capsules 0.72.
+- Throughput on CPU is about 11 images/s per container with int8, which is enough for one slow line, not a
+  fast one. CoreML reached 139 images/s for the backbone, but the full service was load-tested only on CPU.
 - Benchmarks come from one laptop. CUDA and TensorRT paths are configurable through ONNX Runtime providers but
   **untested**.
 - The conformal bound covers false alarms only and requires exchangeability. Drift voids it until recalibration.

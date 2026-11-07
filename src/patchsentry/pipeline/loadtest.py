@@ -26,9 +26,16 @@ import numpy as np
 logger = logging.getLogger(__name__)
 REPORTS = Path("reports")
 CONCURRENCY_LEVELS = (1, 4, 16, 32)
-CONFIGURATIONS = (
-    {"name": "no-batching", "max_batch_size": 1, "max_wait_ms": 0.0},
-    {"name": "micro-batching", "max_batch_size": 16, "max_wait_ms": 5.0},
+CONFIGURATIONS: tuple[dict[str, Any], ...] = (
+    {"name": "no-batching", "max_batch_size": 1, "max_wait_ms": 0.0, "quantized": False},
+    {"name": "micro-batching", "max_batch_size": 16, "max_wait_ms": 5.0, "quantized": False},
+    {"name": "quantized-no-batching", "max_batch_size": 1, "max_wait_ms": 0.0, "quantized": True},
+    {
+        "name": "quantized-micro-batching",
+        "max_batch_size": 16,
+        "max_wait_ms": 5.0,
+        "quantized": True,
+    },
 )
 PORT = 8765
 
@@ -108,6 +115,7 @@ def run(bundle: Path, data_root: Path, category: str, duration: float) -> None:
                     "PATCHSENTRY_CATEGORIES": json.dumps([category]),
                     "PATCHSENTRY_MAX_BATCH_SIZE": str(configuration["max_batch_size"]),
                     "PATCHSENTRY_MAX_WAIT_MS": str(configuration["max_wait_ms"]),
+                    "PATCHSENTRY_USE_QUANTIZED": str(configuration["quantized"]).lower(),
                     "PATCHSENTRY_DATABASE_URL": f"sqlite:///{temp}/{time.time_ns()}.db",
                     "PATCHSENTRY_LOG_LEVEL": "WARNING",
                 }
@@ -135,6 +143,7 @@ def run(bundle: Path, data_root: Path, category: str, duration: float) -> None:
                     "configuration": configuration["name"],
                     "max_batch_size": configuration["max_batch_size"],
                     "max_wait_ms": configuration["max_wait_ms"],
+                    "quantized": configuration["quantized"],
                     "concurrent_clients": concurrency,
                     "requests": int(values.size),
                     "errors": len(errors),

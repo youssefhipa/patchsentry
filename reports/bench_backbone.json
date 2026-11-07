@@ -1,0 +1,168 @@
+{
+  "machine": {
+    "processor": "Apple M3",
+    "system": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "rows": [
+    {
+      "runtime": "pytorch-cpu",
+      "batch_size": 1,
+      "images_per_second": 19.5542367316302,
+      "batch_latency_p50_ms": 51.139812498149695,
+      "batch_latency_p95_ms": 51.96740415231033,
+      "runs": 160
+    },
+    {
+      "runtime": "pytorch-cpu",
+      "batch_size": 8,
+      "images_per_second": 21.85675651946094,
+      "batch_latency_p50_ms": 366.01954150319216,
+      "batch_latency_p95_ms": 404.32119134420645,
+      "runs": 20
+    },
+    {
+      "runtime": "pytorch-cpu",
+      "batch_size": 16,
+      "images_per_second": 3.0934119665754536,
+      "batch_latency_p50_ms": 5172.28231250192,
+      "batch_latency_p95_ms": 5460.0708981000935,
+      "runs": 10
+    },
+    {
+      "runtime": "pytorch-cpu",
+      "batch_size": 32,
+      "images_per_second": 2.880876024025411,
+      "batch_latency_p50_ms": 11107.732416505314,
+      "batch_latency_p95_ms": 11560.634362648852,
+      "runs": 10
+    },
+    {
+      "runtime": "pytorch-mps",
+      "batch_size": 1,
+      "images_per_second": 38.004388781561865,
+      "batch_latency_p50_ms": 26.312750502256677,
+      "batch_latency_p95_ms": 26.955272901977878,
+      "runs": 160
+    },
+    {
+      "runtime": "pytorch-mps",
+      "batch_size": 8,
+      "images_per_second": 36.09115161382425,
+      "batch_latency_p50_ms": 221.66097900117165,
+      "batch_latency_p95_ms": 236.3519794533204,
+      "runs": 20
+    },
+    {
+      "runtime": "pytorch-mps",
+      "batch_size": 16,
+      "images_per_second": 37.223169038495456,
+      "batch_latency_p50_ms": 429.8398124956293,
+      "batch_latency_p95_ms": 456.0434126477048,
+      "runs": 10
+    },
+    {
+      "runtime": "pytorch-mps",
+      "batch_size": 32,
+      "images_per_second": 35.4007477710202,
+      "batch_latency_p50_ms": 903.9357079964248,
+      "batch_latency_p95_ms": 1066.3682082966259,
+      "runs": 10
+    },
+    {
+      "runtime": "onnx-cpu-float",
+      "batch_size": 1,
+      "images_per_second": 6.121490910128644,
+      "batch_latency_p50_ms": 163.35889649781166,
+      "batch_latency_p95_ms": 188.44244760221042,
+      "runs": 160
+    },
+    {
+      "runtime": "onnx-cpu-float",
+      "batch_size": 8,
+      "images_per_second": 6.483816511280165,
+      "batch_latency_p50_ms": 1233.8412085046002,
+      "batch_latency_p95_ms": 1258.7619604048086,
+      "runs": 20
+    },
+    {
+      "runtime": "onnx-cpu-float",
+      "batch_size": 16,
+      "images_per_second": 6.64131098257422,
+      "batch_latency_p50_ms": 2409.1628959977243,
+      "batch_latency_p95_ms": 2567.474509751264,
+      "runs": 10
+    },
+    {
+      "runtime": "onnx-cpu-float",
+      "batch_size": 32,
+      "images_per_second": 6.667655586254662,
+      "batch_latency_p50_ms": 4799.288083500869,
+      "batch_latency_p95_ms": 5125.802728950657,
+      "runs": 10
+    },
+    {
+      "runtime": "onnx-cpu-quantized",
+      "batch_size": 1,
+      "images_per_second": 21.649980991809134,
+      "batch_latency_p50_ms": 46.18941699663992,
+      "batch_latency_p95_ms": 46.76943989943538,
+      "runs": 160
+    },
+    {
+      "runtime": "onnx-cpu-quantized",
+      "batch_size": 8,
+      "images_per_second": 21.761309377860115,
+      "batch_latency_p50_ms": 367.62493750211434,
+      "batch_latency_p95_ms": 369.03596249758266,
+      "runs": 20
+    },
+    {
+      "runtime": "onnx-cpu-quantized",
+      "batch_size": 16,
+      "images_per_second": 21.922190149671074,
+      "batch_latency_p50_ms": 729.8540834999585,
+      "batch_latency_p95_ms": 733.7654525996186,
+      "runs": 10
+    },
+    {
+      "runtime": "onnx-cpu-quantized",
+      "batch_size": 32,
+      "images_per_second": 22.260993452470903,
+      "batch_latency_p50_ms": 1437.4920000009297,
+      "batch_latency_p95_ms": 1447.068458850481,
+      "runs": 10
+    },
+    {
+      "runtime": "onnx-coreml",
+      "batch_size": 1,
+      "images_per_second": 132.8980921890249,
+      "batch_latency_p50_ms": 7.524562493927078,
+      "batch_latency_p95_ms": 7.67516605410492,
+      "runs": 160
+    },
+    {
+      "runtime": "onnx-coreml",
+      "batch_size": 8,
+      "images_per_second": 138.95980664040033,
+      "batch_latency_p50_ms": 57.57060399992042,
+      "batch_latency_p95_ms": 58.03099820186617,
+      "runs": 20
+    },
+    {
+      "runtime": "onnx-coreml",
+      "batch_size": 16,
+      "images_per_second": 139.4996539782726,
+      "batch_latency_p50_ms": 114.69562499769381,
+      "batch_latency_p95_ms": 116.75420435021806,
+      "runs": 10
+    },
+    {
+      "runtime": "onnx-coreml",
+      "batch_size": 32,
+      "images_per_second": 142.13103473768948,
+      "batch_latency_p50_ms": 225.144354004442,
+      "batch_latency_p95_ms": 228.66978489837493,
+      "runs": 10
+    }
+  ]
+}

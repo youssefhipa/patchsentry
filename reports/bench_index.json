@@ -1,0 +1,107 @@
+{
+  "machine": {
+    "processor": "Apple M3",
+    "system": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "rows": [
+    {
+      "category": "candle",
+      "index": "flat",
+      "bank_size": 10800,
+      "build_seconds": 0.022201125000719912,
+      "search_p50_ms_per_image": 38.15637449588394,
+      "search_p95_ms_per_image": 38.89002145042468,
+      "recall_at_1": 1.0,
+      "image_auroc": 0.9635,
+      "index_size_mb": 44.236845
+    },
+    {
+      "category": "candle",
+      "index": "hnsw",
+      "bank_size": 10800,
+      "build_seconds": 0.5180167500002426,
+      "search_p50_ms_per_image": 22.557187501661247,
+      "search_p95_ms_per_image": 24.676489250487066,
+      "recall_at_1": 0.999934375,
+      "image_auroc": 0.9636,
+      "index_size_mb": 47.172386
+    },
+    {
+      "category": "candle",
+      "index": "ivf",
+      "bank_size": 10800,
+      "build_seconds": 0.10700937500223517,
+      "search_p50_ms_per_image": 81.89239550483762,
+      "search_p95_ms_per_image": 92.24819314804334,
+      "recall_at_1": 0.999940625,
+      "image_auroc": 0.9636,
+      "index_size_mb": 44.746051
+    },
+    {
+      "category": "pcb1",
+      "index": "flat",
+      "bank_size": 10848,
+      "build_seconds": 0.0537320000003092,
+      "search_p50_ms_per_image": 38.61766699992586,
+      "search_p95_ms_per_image": 40.27742709913582,
+      "recall_at_1": 1.0,
+      "image_auroc": 0.9711,
+      "index_size_mb": 44.433453
+    },
+    {
+      "category": "pcb1",
+      "index": "hnsw",
+      "bank_size": 10848,
+      "build_seconds": 0.4991529589970014,
+      "search_p50_ms_per_image": 21.017437502450775,
+      "search_p95_ms_per_image": 22.03731430345215,
+      "recall_at_1": 0.999846875,
+      "image_auroc": 0.9711,
+      "index_size_mb": 47.38237
+    },
+    {
+      "category": "pcb1",
+      "index": "ivf",
+      "bank_size": 10848,
+      "build_seconds": 0.09555045800516382,
+      "search_p50_ms_per_image": 76.339896000718,
+      "search_p95_ms_per_image": 85.44437499913327,
+      "recall_at_1": 0.9998375,
+      "image_auroc": 0.9711,
+      "index_size_mb": 44.947147
+    },
+    {
+      "category": "macaroni2",
+      "index": "flat",
+      "bank_size": 10800,
+      "build_seconds": 0.017757417001121212,
+      "search_p50_ms_per_image": 37.73166699829744,
+      "search_p95_ms_per_image": 39.19428785084165,
+      "recall_at_1": 1.0,
+      "image_auroc": 0.6623,
+      "index_size_mb": 44.236845
+    },
+    {
+      "category": "macaroni2",
+      "index": "hnsw",
+      "bank_size": 10800,
+      "build_seconds": 0.712277582999377,
+      "search_p50_ms_per_image": 34.25291650273721,
+      "search_p95_ms_per_image": 36.38165594966267,
+      "recall_at_1": 0.999971875,
+      "image_auroc": 0.6623,
+      "index_size_mb": 47.172386
+    },
+    {
+      "category": "macaroni2",
+      "index": "ivf",
+      "bank_size": 10800,
+      "build_seconds": 0.11266720900312066,
+      "search_p50_ms_per_image": 69.19558349545696,
+      "search_p95_ms_per_image": 75.17839439678936,
+      "recall_at_1": 0.9992125,
+      "image_auroc": 0.662,
+      "index_size_mb": 44.746051
+    }
+  ]
+}
